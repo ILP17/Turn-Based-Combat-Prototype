@@ -13,3 +13,9 @@ enum TargetType {
 	Team,
 	Self
 }
+
+global.actionMetadata = {};
+
+global.actionMetadata[$ nameof(BasicHitAction)] = new ActionMetadata();
+global.actionMetadata[$ nameof(BasicHealAction)] = new ActionMetadata(
+	{targetType: TargetType.Team, effectType: EffectType.Heal, targetStrategy: HealTargetStrategy});

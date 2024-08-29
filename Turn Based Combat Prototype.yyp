@@ -51,6 +51,8 @@
     {"id":{"name":"ObjGame","path":"objects/ObjGame/ObjGame.yy",},},
     {"id":{"name":"RmStart","path":"rooms/RmStart/RmStart.yy",},},
     {"id":{"name":"RmTest","path":"rooms/RmTest/RmTest.yy",},},
+    {"id":{"name":"__Action","path":"scripts/__Action/__Action.yy",},},
+    {"id":{"name":"__ActionMetadata","path":"scripts/__ActionMetadata/__ActionMetadata.yy",},},
     {"id":{"name":"__ActionStrategy","path":"scripts/__ActionStrategy/__ActionStrategy.yy",},},
     {"id":{"name":"__AnyTargetStrategy","path":"scripts/__AnyTargetStrategy/__AnyTargetStrategy.yy",},},
     {"id":{"name":"__BasicActionStrategy","path":"scripts/__BasicActionStrategy/__BasicActionStrategy.yy",},},

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__SimpleTimer",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__SimpleTimer",
+  "parent":{
+    "name":"Utility",
+    "path":"folders/Scripts/Utility.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

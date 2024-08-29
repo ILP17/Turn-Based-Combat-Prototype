@@ -2,7 +2,7 @@ __time = 0;
 __damageChannel = animcurve_get_channel(AnimCurveElastic, 0);
 __critChannel = animcurve_get_channel(AnimCurveElastic, 1);
 __weakChannel = animcurve_get_channel(AnimCurveElastic, 2);
-
+__textColor = c_maroon;
 damage = 0;
 style = 0;
 

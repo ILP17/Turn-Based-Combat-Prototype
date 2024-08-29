@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"__Character",
+  "%Name":"TurnBattleSystemInit",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__Character",
+  "name":"TurnBattleSystemInit",
   "parent":{
     "name":"Battle Core",
     "path":"folders/Scripts/Battle Core.yy",

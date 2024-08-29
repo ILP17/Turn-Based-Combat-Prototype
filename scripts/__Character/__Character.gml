@@ -5,7 +5,8 @@ function Character(_config = {}) constructor {
 	sprite = _config[$ "sprite"] ?? SprPlayer;
 	stats = _config[$ "stats"] ?? new Stats();
 	actions =  _config[$ "actions"] ?? [BasicHitAction];
-	strategies = _config[$ "strategies"] [BasicActionStrategy];
+	strategies = _config[$ "strategies"] ?? [BasicActionStrategy];
+	isBoss = _config[$ "isBoss"] ?? false;
 }
 
 /**

@@ -44,7 +44,7 @@ PreBattle = function() {
 		_battleParticipant = noone,
 		_playerX = room_width / 3,
 		_monsterX = room_width * (2 / 3),
-		_y = (room_height / 2) - ((array_length(global.playerParty) + array_length(global.enemyParty)) * 34) / 2;
+		_y = (room_height / 2) - (array_length(global.playerParty) * 34) / 2;
 	
 	for(var i = 0; i < array_length(global.playerParty); i++) {
 		_characterData = global.playerParty[i];
@@ -54,10 +54,18 @@ PreBattle = function() {
 		array_push(__alphaTeam, _battleParticipant);
 	}
 	
+	_y = (room_height / 2) - (array_length(global.enemyParty) * 34 / 2);
 	for(var i = 0; i < array_length(global.enemyParty); i++) {
 		_characterData = global.enemyParty[i];
+		
+		var _realMonsterX = _monsterX + irandom_range(-18, 18);
+		
+		if(_characterData.isBoss) {
+			_realMonsterX += 80;
+		}
+		
 		_battleParticipant = instance_create_layer(
-			_monsterX + irandom_range(-18, 18), _y + i * 34, layer, ObjBattleParticipant);
+			_realMonsterX, _y + i * 34, layer, ObjBattleParticipant);
 		_battleParticipant.Initialize(_characterData);
 		_battleParticipant.image_xscale = -1;
 		array_push(__betaTeam, _battleParticipant);

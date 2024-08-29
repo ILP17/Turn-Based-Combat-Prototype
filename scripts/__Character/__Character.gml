@@ -20,7 +20,7 @@ function Stats(_config = {}) constructor {
 
 /**
 */
-function StatsMultiplier(_config = {}) constructor {
+function StatsMultiplierModifier(_config = {}) constructor {
 	hp = _config[$ "hp"] ?? 1;
 	at = _config[$ "at"] ?? 1;
 	df = _config[$ "df"] ?? 1;

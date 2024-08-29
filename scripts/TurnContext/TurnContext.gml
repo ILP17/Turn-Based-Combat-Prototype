@@ -3,17 +3,21 @@ function TurnContext(_turn_instance, _my_team, _enemy_team) constructor {
 	myTeam = _my_team;
 	enemyTeam = _enemy_team;
 	
-	static ResolveTargets = function() {
-		switch(_actionInstance.targetType) {
+	static ResolveTargets = function(_action_instance) {
+		var _targets = [];
+		
+		switch(_action_instance.targetType) {
 			case TargetType.Enemy:
-				_target = _turnInstance.GetTarget(_enemyTeam);
+				_targets = enemyTeam;
 				break;
 			case TargetType.Team:
-				_target = _turnInstance.GetTarget(_myTeam);
+				_targets = myTeam;
 				break;
 			case TargetType.Self:
-				_target = _turnInstance;
+				_targets = [turnInstance];
 				break;
 		}
+		
+		return _targets;
 	}
 }

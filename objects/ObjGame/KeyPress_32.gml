@@ -1,0 +1,1 @@
+ObjBattleStateController.battleState = BattleStates.PreBattle;

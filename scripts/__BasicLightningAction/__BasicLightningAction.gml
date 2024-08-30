@@ -19,11 +19,19 @@ function BasicLightningAction() : Action() constructor {
 				if(__strikeTimer.IsFinished()) {
 					__strikeCount --;
 					
-					var _victim = __targets[0];
+					var _victim = __targets[__target_index];
 					var _effect = instance_create_depth(_victim.x, _victim.y, _victim.depth + 1, ObjBasicEffect);
 					_effect.Initialize(SprLightning, 24);
 					_effect.image_yscale = 100;
 					_effect.image_angle = -45;
+					__strikeTimer.Reset();
+					__target_index++;
+					
+					if(__target_index == 0) {
+						_victim.Damage(GetDamage(_attacker, 0.40, _victim, MAG_STAT, DF_STAT));
+					} else {
+						_victim.Damage(GetDamage(_attacker, 0.25, _victim, MAG_STAT, DF_STAT));
+					}
 					
 					if(__strikeCount == 0) {
 						__state++;

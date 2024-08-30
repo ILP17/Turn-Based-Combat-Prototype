@@ -1,7 +1,7 @@
 function BasicExplosionAction() : Action() constructor {
 	__state = 0;
 	__strikeTimer = new SimpleTimer(15);
-	__strikeCount = 0;
+	__strikeCount = 6;
 	__waitTimer = new SimpleTimer(15);
 	__target_index = 0;
 	
@@ -11,7 +11,6 @@ function BasicExplosionAction() : Action() constructor {
 		switch(__state) {
 			case 0:
 				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart - 64, 12)) {
-					__strikeCount = array_length(__targets);
 					__state ++;
 				}
 				break;
@@ -19,11 +18,15 @@ function BasicExplosionAction() : Action() constructor {
 				if(__strikeTimer.IsFinished()) {
 					__strikeCount --;
 					
-					var _victim = __targets[0];
-					var _effect = instance_create_depth(_victim.x, _victim.y, _victim.depth + 1, ObjBasicEffect);
-					_effect.Initialize(SprLightning, 24);
-					_effect.image_yscale = 100;
-					_effect.image_angle = -45;
+					var _victim = __targets[irandom(array_length(__targets))];
+					var _effect = instance_create_depth(
+						_victim.x + irandom_range(-24, 24),
+						_victim.y + irandom_range(-16, 16),
+						_victim.depth + 1, ObjBasicEffect);
+					_effect.Initialize(SprExplosion);
+					_effect.image_xscale = 0.5;
+					_effect.image_yscale = 0.5;
+					__strikeTimer.Reset();
 					
 					if(__strikeCount == 0) {
 						__state++;
@@ -34,11 +37,22 @@ function BasicExplosionAction() : Action() constructor {
 				}
 				break;
 			case 2:
+				for(var i = 0; i < array_length(__targets); i++) {
+					var _victim = __targets[i];
+					var _effect = instance_create_depth(
+						_victim.x,
+						_victim.y,
+						_victim.depth + 1, ObjBasicEffect);
+					_effect.Initialize(SprExplosion);
+					_victim.Damage(GetDamage(_attacker, 0.20, _victim, AT_STAT, DF_STAT));
+				}
+				break;
+			case 3:
 				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart, 8)) {
 					__state ++;
 				}
 				break;
-			case 3:
+			case 4:
 				__hasEnded = true;
 				break;
 		}

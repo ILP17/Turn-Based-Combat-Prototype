@@ -68,6 +68,7 @@
     {"id":{"name":"__Character","path":"scripts/__Character/__Character.yy",},},
     {"id":{"name":"__HealActionStrategy","path":"scripts/__HealActionStrategy/__HealActionStrategy.yy",},},
     {"id":{"name":"__HealTargetStrategy","path":"scripts/__HealTargetStrategy/__HealTargetStrategy.yy",},},
+    {"id":{"name":"__ReviveTargetStrategy","path":"scripts/__ReviveTargetStrategy/__ReviveTargetStrategy.yy",},},
     {"id":{"name":"__SimpleTimer","path":"scripts/__SimpleTimer/__SimpleTimer.yy",},},
     {"id":{"name":"__TargetStrategy","path":"scripts/__TargetStrategy/__TargetStrategy.yy",},},
     {"id":{"name":"__TurnActionContext","path":"scripts/__TurnActionContext/__TurnActionContext.yy",},},

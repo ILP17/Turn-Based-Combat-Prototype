@@ -1,6 +1,6 @@
-function AllTargetStrategy() : TargetStrategy() constructor {
+function ReviveTargetStrategy() : TargetStrategy() constructor {
 	__Filter = function(_potential_target, _index) {
-		return _potential_target.IsTargetable();
+		return !_potential_target.IsAlive();
 	}
 	
 	GetTarget = function(_target_team) {
@@ -10,6 +10,6 @@ function AllTargetStrategy() : TargetStrategy() constructor {
 			return _target_team;
 		}
 		
-		return _target_team;
+		return [_target_team[irandom(array_length(_target_team) - 1)]];
 	}
 }

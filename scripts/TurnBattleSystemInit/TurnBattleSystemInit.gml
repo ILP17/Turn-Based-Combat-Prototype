@@ -19,6 +19,12 @@ global.actionMetadata = {};
 global.actionMetadata[$ nameof(BasicHitAction)] = new ActionMetadata();
 global.actionMetadata[$ nameof(BasicHealAction)] = new ActionMetadata(
 	{targetType: TargetType.Team, effectType: EffectType.Heal, targetStrategy: HealTargetStrategy});
+global.actionMetadata[$ nameof(BasicResurrectionAction)] = new ActionMetadata(
+	{targetType: TargetType.Team, effectType: EffectType.Heal, targetStrategy: ReviveTargetStrategy});
+global.actionMetadata[$ nameof(BasicLightningAction)] = new ActionMetadata(
+	{targetStrategy: AdjacentTargetStrategy});
+global.actionMetadata[$ nameof(BasicExplosionAction)] = new ActionMetadata(
+	{targetStrategy: AllTargetStrategy});
 
 /**
 	@return {struct.ActionMetadata}

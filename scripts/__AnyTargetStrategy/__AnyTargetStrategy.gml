@@ -3,13 +3,13 @@ function AnyTargetStrategy() : TargetStrategy() constructor {
 		return _potential_target.IsTargetable();
 	}
 	
-	GetTarget = function(_targetTeam) {
-		var _targetTeam = array_filter(_targetTeam, __Filter);
+	GetTarget = function(_target_team) {
+		_target_team = array_filter(_target_team, __Filter);
 		
-		if(array_length(_targetTeam) == 0) {
-			return _targetTeam;
+		if(array_length(_target_team) == 0) {
+			return _target_team;
 		}
 		
-		return [_targetTeam[irandom(array_length(_targetTeam) - 1)]];
+		return [_target_team[irandom(array_length(_target_team) - 1)]];
 	}
 }

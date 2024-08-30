@@ -4,6 +4,7 @@ function BasicHealAction() : Action() constructor {
 	__z = 0;
 	__zSpeed = -12;
 	__zGravity = 1;
+	__part_system = undefined;
 	
 	Run = function() {
 		var _attacker = __attackers[0],
@@ -20,10 +21,15 @@ function BasicHealAction() : Action() constructor {
 				}
 				break;
 			case 1:
-				_victim.Damage(GetDamageNoDefense(_attacker, -0.25, _victim, MAG_STAT));
+				__part_system = part_system_create_layer("Instances", false, PartSysHeal);
+				part_system_position(__part_system, _victim.x, _victim.y);
 				__state++;
 				break;
 			case 2:
+				_victim.Damage(GetDamageNoDefense(_attacker, -0.25, _victim, MAG_STAT));
+				__state++;
+				break;
+			case 3:
 				if(__waitTimer.IsFinished()) {
 					__state++;
 					break;
@@ -31,7 +37,8 @@ function BasicHealAction() : Action() constructor {
 					__waitTimer.Tick();
 				}
 				break;
-			case 3:
+			case 4:
+				part_system_destroy(__part_system);
 				__hasEnded = true;
 				break;
 		}

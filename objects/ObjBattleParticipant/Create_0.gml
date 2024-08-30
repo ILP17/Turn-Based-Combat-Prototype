@@ -3,6 +3,7 @@ __spriteDead = SprPlayerDead;
 __healthColor = c_aqua;
 __characterData = new Character();
 __health = 0;
+__healthDisplay = 0;
 __buffs = [];
 
 /**
@@ -12,6 +13,7 @@ Initialize = function(_character_data) {
 	__characterData = _character_data;
 	
 	__health = __characterData.stats.hp;
+	__healthDisplay = __health;
 	
 	var _name = sprite_get_name(__characterData.sprite);
 	__sprite = __characterData.sprite;

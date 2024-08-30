@@ -5,6 +5,7 @@ function BasicResurrectionAction() : Action() constructor {
 	__z = 0;
 	__zSpeed = -12;
 	__zGravity = 1;
+	__part_system = undefined;
 	
 	Run = function() {
 		var _attacker = __attackers[0],
@@ -14,7 +15,7 @@ function BasicResurrectionAction() : Action() constructor {
 			case 0:
 				__z = min(__z + __zSpeed, 0);
 				__zSpeed += __zGravity;
-				_attacker.y = ystart + __z;
+				_attacker.y = _attacker.ystart + __z;
 				if(__z == 0) {
 					__state++;
 					break;
@@ -23,6 +24,7 @@ function BasicResurrectionAction() : Action() constructor {
 			case 1:
 				__part_system = part_system_create_layer("Instances", false, PartSysResurrect);
 				part_system_position(__part_system, _victim.x, _victim.y);
+				__state++;
 				break;
 			case 2:
 				if(__shakeTimer.IsFinished()) {
@@ -42,7 +44,7 @@ function BasicResurrectionAction() : Action() constructor {
 			case 4:
 				__z = min(__z + __zSpeed, 0);
 				__zSpeed += __zGravity;
-				_victim.y = ystart + __z;
+				_victim.y = _victim.ystart + __z;
 				if(__z == 0) {
 					__state++;
 					break;

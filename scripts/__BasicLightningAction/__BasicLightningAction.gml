@@ -1,8 +1,7 @@
 function BasicLightningAction() : Action() constructor {
 	__state = 0;
-	__strikeTimer = new SimpleTimer(15);
+	__strikeTimer = new SimpleTimer(20);
 	__strikeCount = 0;
-	__waitTimer = new SimpleTimer(15);
 	__target_index = 0;
 	
 	Run = function() {
@@ -10,7 +9,7 @@ function BasicLightningAction() : Action() constructor {
 		
 		switch(__state) {
 			case 0:
-				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart - 64, 12)) {
+				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart - 64, 6)) {
 					__strikeCount = array_length(__targets);
 					__state ++;
 				}
@@ -25,13 +24,14 @@ function BasicLightningAction() : Action() constructor {
 					_effect.image_yscale = 100;
 					_effect.image_angle = -25;
 					__strikeTimer.Reset();
-					__target_index++;
 					
 					if(__target_index == 0) {
 						_victim.Damage(GetDamage(_attacker, 0.40, _victim, MAG_STAT, DF_STAT));
 					} else {
 						_victim.Damage(GetDamage(_attacker, 0.25, _victim, MAG_STAT, DF_STAT));
 					}
+					
+					__target_index++;
 					
 					if(__strikeCount == 0) {
 						__state++;
@@ -42,7 +42,7 @@ function BasicLightningAction() : Action() constructor {
 				}
 				break;
 			case 2:
-				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart, 8)) {
+				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart, 4)) {
 					__state ++;
 				}
 				break;

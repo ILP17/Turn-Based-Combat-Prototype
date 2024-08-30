@@ -2,7 +2,7 @@ function BasicExplosionAction() : Action() constructor {
 	__state = 0;
 	__strikeTimer = new SimpleTimer(15);
 	__strikeCount = 6;
-	__waitTimer = new SimpleTimer(15);
+	__waitTimer = new SimpleTimer(30);
 	__target_index = 0;
 	
 	Run = function() {
@@ -10,14 +10,12 @@ function BasicExplosionAction() : Action() constructor {
 		
 		switch(__state) {
 			case 0:
-				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart - 64, 12)) {
+				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart - 64, 6)) {
 					__state ++;
 				}
 				break;
 			case 1:
 				if(__strikeTimer.IsFinished()) {
-					__strikeCount --;
-					
 					var _victim = __targets[irandom(array_length(__targets) - 1)];
 					var _effect = instance_create_depth(
 						_victim.x + irandom_range(-24, 24),
@@ -32,6 +30,8 @@ function BasicExplosionAction() : Action() constructor {
 						__state++;
 						break;
 					}
+					
+					__strikeCount --;
 				} else {
 					__strikeTimer.Tick();
 				}
@@ -44,16 +44,24 @@ function BasicExplosionAction() : Action() constructor {
 						_victim.y,
 						_victim.depth + 1, ObjBasicEffect);
 					_effect.Initialize(SprExplosion);
-					_victim.Damage(GetDamage(_attacker, 0.20, _victim, AT_STAT, DF_STAT));
+					_victim.Damage(GetDamage(_attacker, 0.3, _victim, AT_STAT, DF_STAT));
 				}
 				__state ++;
 				break;
 			case 3:
-				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart, 8)) {
+				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart, 4)) {
 					__state ++;
 				}
 				break;
 			case 4:
+				if(__waitTimer.IsFinished()) {
+					__state++;
+					break;
+				} else {
+					__waitTimer.Tick();
+				}
+				break;
+			case 5:
 				__hasEnded = true;
 				break;
 		}

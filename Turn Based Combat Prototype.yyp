@@ -51,6 +51,7 @@
     {"id":{"name":"ObjBattleStateController","path":"objects/ObjBattleStateController/ObjBattleStateController.yy",},},
     {"id":{"name":"ObjDamage","path":"objects/ObjDamage/ObjDamage.yy",},},
     {"id":{"name":"ObjGame","path":"objects/ObjGame/ObjGame.yy",},},
+    {"id":{"name":"PartSysHeal","path":"particles/PartSysHeal/PartSysHeal.yy",},},
     {"id":{"name":"PartSysResurrect","path":"particles/PartSysResurrect/PartSysResurrect.yy",},},
     {"id":{"name":"RmStart","path":"rooms/RmStart/RmStart.yy",},},
     {"id":{"name":"RmTest","path":"rooms/RmTest/RmTest.yy",},},

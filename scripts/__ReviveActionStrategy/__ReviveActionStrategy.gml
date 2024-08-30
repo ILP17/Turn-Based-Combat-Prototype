@@ -1,6 +1,6 @@
 function ReviveActionStrategy() : ActionStrategy() constructor {
-	EvaluateAction = function(_turnContext, _actionList, _weights = undefined) {
-		_weights ??= __InitializeWeights(_actionList);
+	EvaluateAction = function(_turnContext, _action_list, _weights = undefined) {
+		_weights ??= __InitializeWeights(_action_list);
 		var _shouldHeal = 0;
 		var _target =_turnContext.myTeam;
 		for(var i = 0; i < array_length(_target); i++) {
@@ -10,8 +10,8 @@ function ReviveActionStrategy() : ActionStrategy() constructor {
 			}
 		}
 		
-		for(var i = 0; i < array_length(_actionList); i++) {
-			var _metadata = scr_get_action_metadata(_actionList[i]);
+		for(var i = 0; i < array_length(_action_list); i++) {
+			var _metadata = scr_get_action_metadata(_action_list[i]);
 			
 			if(_metadata.effectType != EffectType.Revive) {
 				continue;

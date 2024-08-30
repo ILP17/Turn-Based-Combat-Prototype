@@ -33,5 +33,5 @@ draw_rectangle_color(
 	false);
 
 for(var i = 0; i < array_length(__buffs); i++) {
-	draw_sprite(SprBuffIcons, __buff[i].iconIndex, _x1 - 18 * i, _y1);
+	draw_sprite(SprBuffIcons, __buffs[i].iconIndex, _x1 - 18 - (18 * image_xscale * i), _y1);
 }

@@ -96,6 +96,8 @@ PreTurn = function() {
 		return;
 	}
 	
+	_turnInstance.DecayBuffs();
+	
 	var _myTeam,
 		_enemyTeam;
 	

@@ -1,6 +1,6 @@
 function BasicResurrectionAction() : Action() constructor {
 	__state = 0;
-	__shakeTimer = new SimpleTimer(45);
+	__shakeTimer = new SimpleTimer(80);
 	__waitTimer = new SimpleTimer(15);
 	__z = 0;
 	__zSpeed = -12;

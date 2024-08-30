@@ -30,3 +30,13 @@ function scr_instance_move_to(_instance, _x, _y, _step, _padding = 0) {
 	
 	return false;
 }
+
+/**
+	@param {Id.Instance} _instance
+	@param {real} _x
+	@param {real} _y
+*/
+function scr_instance_set_scale(_instance, _x, _y) {
+	_instance.image_xscale = _x;
+	_instance.image_yscale = _y;
+}

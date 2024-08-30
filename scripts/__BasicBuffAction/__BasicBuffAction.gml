@@ -1,8 +1,8 @@
-function BasicHealAction() : Action() constructor {
+function BasicBuffAction() : Action() constructor {
 	__state = 0;
 	__waitTimer = new SimpleTimer(35);
 	__z = 0;
-	__zSpeed = -10;
+	__zSpeed = -12;
 	__zGravity = 1;
 	__part_system = undefined;
 	
@@ -26,7 +26,7 @@ function BasicHealAction() : Action() constructor {
 				__state++;
 				break;
 			case 2:
-				_victim.Damage(GetDamageNoDefense(_attacker, -0.25, _victim, MAG_STAT));
+				_victim.ApplyBuff(new ValorBuff(3));
 				__state++;
 				break;
 			case 3:

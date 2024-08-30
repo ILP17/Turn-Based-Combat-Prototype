@@ -71,10 +71,10 @@ GetAction = function(_turn_context) {
 	//Get targets
 	var _action_metadata = scr_get_action_metadata(_action);
 	var _target_strategy = new _action_metadata.targetStrategy();
-	var _targets = _target_strategy.GetTarget(_turn_context.ResolveTargets(_action_metadata));
+	var _targets = _target_strategy.GetTarget(_turn_context.ResolveTargets(_action_metadata), _action_metadata);
 	
 	if(array_length(_targets) == 0) {
-		throw ($"ERROR: {script_get_name(_action_metadata.targetStrategy)} produced no targets");
+		throw ($"ERROR: {script_get_name(_action_metadata.targetStrategy)} produced no targets!");
 	}
 	
 	var _actionInstance = new _action();
@@ -100,6 +100,61 @@ CanAct = function() {
 	return IsAlive();
 }
 
+/**
+	@param {struct.Buff}
+*/
+__buff_constructor = undefined;
+HasBuff = function(_buff_constructor) {
+	static __InstanceIsBuff = function(_buff, _index) {
+		return instanceof(_buff) == script_get_name(__buff_constructor);
+	}
+	__buff_constructor = _buff_constructor;
+	return array_any(__buffs, __InstanceIsBuff);
+}
+
+/**
+	Returns true if battle participant has any of the provided buffs
+	@param {Array<struct.Buff>} _buffs
+*/
+HasAnyBuff = function(_buffs) {
+	for(var i = 0; i < array_length(_buffs); i++) {
+		if(HasBuff(_buffs[i])) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+/**
+	@param {struct.Buff}
+*/
+ApplyBuff = function(_buff) {
+	array_push(__buffs, _buff);
+}
+
+/**
+	Clears buffs
+*/
+ClearBuffs = function() {
+	__buffs = [];
+}
+
+/**
+	Decays all buffs' turn timers by 1
+*/
+DecayBuffs = function() {
+	static __Filter = function(_buff, _index) {
+		return _buff.turnCount > 0;
+	}
+	
+	__buffs = array_filter(__buffs, __Filter);
+	
+	for(var i = 0; i < array_length(__buffs); i++) {
+		__buffs[i].turnCount --;
+	}
+}
+
 Damage = function(_damage) {
 	var _is_crit = irandom(99) + 1 <= 25,
 		_style = 1;
@@ -122,6 +177,7 @@ Damage = function(_damage) {
 		ObjDamage).Initialize(abs(_damage), _style);
 	
 	if(__health == 0) {
+		ClearBuffs();
 		sprite_index = __spriteDead;
 		image_blend = c_gray;
 	} else {

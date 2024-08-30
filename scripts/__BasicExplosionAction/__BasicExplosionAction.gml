@@ -27,8 +27,7 @@ function BasicExplosionAction() : Action() constructor {
 						_victim.y + irandom_range(-16, 16),
 						_victim.depth + 1, ObjBasicEffect);
 					_effect.Initialize(SprExplosion);
-					_effect.image_xscale = 0.5;
-					_effect.image_yscale = 0.5;
+					scr_instance_set_scale(_effect, 0.5, 0.5);
 					__strikeTimer.Reset();
 					__strikeCount --;
 					if(__strikeCount == 0) {

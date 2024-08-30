@@ -1,4 +1,4 @@
-function AnyTargetStrategy() : TargetStrategy() constructor {
+function AllTargetStrategy() : TargetStrategy() constructor {
 	__Filter = function(_potential_target, _index) {
 		return _potential_target.IsTargetable();
 	}
@@ -10,6 +10,6 @@ function AnyTargetStrategy() : TargetStrategy() constructor {
 			return _targetTeam;
 		}
 		
-		return [_targetTeam[irandom(array_length(_targetTeam) - 1)]];
+		return _targetTeam;
 	}
 }

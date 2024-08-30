@@ -97,9 +97,7 @@ PreTurn = function() {
 		return;
 	}
 	
-	var _action = _turnInstance.GetAction(),
-		_actionInstance = new _action(),
-		_myTeam,
+	var _myTeam,
 		_enemyTeam;
 	
 	if(array_contains(__alphaTeam, _turnInstance)) {
@@ -112,17 +110,7 @@ PreTurn = function() {
 		_enemyTeam = __alphaTeam;
 	}
 	
-	switch(_actionInstance.targetType) {
-		case TargetType.Enemy:
-			_target = _turnInstance.GetTarget(_enemyTeam);
-			break;
-		case TargetType.Team:
-			_target = _turnInstance.GetTarget(_myTeam);
-			break;
-		case TargetType.Self:
-			_target = _turnInstance;
-			break;
-	}
+	var _turn_action_context = _turnInstance.GetAction(new TurnContext(_turnInstance, _myTeam, _enemyTeam));
 	
 	if(_target == noone) {
 		//assume end of battle
@@ -130,7 +118,7 @@ PreTurn = function() {
 		return;
 	}
 	
-	_actionInstance.Initialize(_turnInstance, _target);
+	_actionInstance.Initialize(_turn_action_context.action, _turn_action_context.targets);
 	array_push(__actions, _actionInstance);
 	battleState = BattleStates.Turn;
 }
@@ -138,6 +126,14 @@ PreTurn = function() {
 Turn = function() {
 	if(array_length(__actions) > 0)	{
 		__actions[0].Run();
+		
+		if(__actions[0].HasEnded()) {
+			array_shift(__actions);
+		}
+	}
+	
+	if(array_length(__actions) == 0)	{
+		battleState = BattleStates.PostTurn;
 	}
 }
 

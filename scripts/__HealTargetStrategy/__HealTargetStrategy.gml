@@ -10,8 +10,8 @@ function HealTargetStrategy() : TargetStrategy() constructor {
 			return _target_team;
 		}
 		
-		var _lastHPRatio = 1,
-			_chosen_target = _target_team[0],
+		var _chosen_target = _target_team[0],
+			_lastHPRatio = _chosen_target.GetHealthRatio(),
 			_potential_target;
 		
 		for(var i = 1; i < array_length(_target_team); i++) {

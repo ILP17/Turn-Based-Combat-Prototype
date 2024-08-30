@@ -16,6 +16,11 @@ function BasicExplosionAction() : Action() constructor {
 				break;
 			case 1:
 				if(__strikeTimer.IsFinished()) {
+					if(__strikeCount == 0) {
+						__state++;
+						break;
+					}
+					
 					var _victim = __targets[irandom(array_length(__targets) - 1)];
 					var _effect = instance_create_depth(
 						_victim.x + irandom_range(-24, 24),
@@ -25,13 +30,10 @@ function BasicExplosionAction() : Action() constructor {
 					_effect.image_xscale = 0.5;
 					_effect.image_yscale = 0.5;
 					__strikeTimer.Reset();
-					
-					if(__strikeCount == 0) {
-						__state++;
-						break;
-					}
-					
 					__strikeCount --;
+					if(__strikeCount == 0) {
+						__strikeTimer.Set(35);
+					}
 				} else {
 					__strikeTimer.Tick();
 				}

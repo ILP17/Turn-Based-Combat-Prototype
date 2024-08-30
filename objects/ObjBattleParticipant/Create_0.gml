@@ -1,11 +1,12 @@
 __sprite = SprPlayer;
 __spriteDead = SprPlayerDead;
+__healthColor = c_aqua;
 __characterData = new Character();
 __health = 0;
 __buffs = [];
 
 /**
-	@param {struct.CharacterData} _character_data
+	@param {struct.Character} _character_data
 */
 Initialize = function(_character_data) {
 	__characterData = _character_data;
@@ -14,7 +15,8 @@ Initialize = function(_character_data) {
 	
 	var _name = sprite_get_name(__characterData.sprite);
 	__sprite = __characterData.sprite;
-	__spriteDead = _name + "Dead";
+	__spriteDead = asset_get_index(_name + "Dead");
+	sprite_index = __sprite;
 }
 
 GetStat = function(_stat_key) {
@@ -39,7 +41,7 @@ GetAction = function(_turn_context) {
 	
 	//Get weights
 	for(var i = 0; i < array_length(_strategies); i++) {
-		_weights = _strategies.EvaluateAction(_turn_context, _actions, _weights);
+		_weights = (new _strategies[i]()).EvaluateAction(_turn_context, _actions, _weights);
 	}
 	
 	//Get total weight
@@ -53,6 +55,10 @@ GetAction = function(_turn_context) {
 		_last_weight = 0,
 		_action;
 	for(var i = 0; i < array_length(_weights); i++) {
+		if(_weights[i] == 0) {
+			continue;
+		}
+		
 		if(_chosen_weight >= _last_weight && _chosen_weight <= _weights[i] + _last_weight) {
 			_action = _actions[i];
 			break;
@@ -62,9 +68,18 @@ GetAction = function(_turn_context) {
 	
 	//Get targets
 	var _action_metadata = scr_get_action_metadata(_action);
-	var _targets = (new _action_metadata.targetStrategy()).GetTarget(_turn_context.ResolveTargets(_action));
+	var _target_strategy = new _action_metadata.targetStrategy();
+	var _targets = _target_strategy.GetTarget(_turn_context.ResolveTargets(_action_metadata));
 	
-	return new TurnActionContext(new _action(), _targets);
+	if(array_length(_targets) == 0) {
+		throw ($"ERROR: {script_get_name(_action_metadata.targetStrategy)} produced no targets");
+	}
+	
+	var _actionInstance = new _action();
+	
+	_actionInstance.Initialize([self], _targets);
+	
+	return new TurnActionContext(_actionInstance, _targets);
 }
 
 GetHealthRatio = function() {
@@ -73,6 +88,14 @@ GetHealthRatio = function() {
 
 IsAlive = function() {
 	return __health > 0;
+}
+
+IsTargetable = function() {
+	return IsAlive();
+}
+
+CanAct = function() {
+	return IsAlive();
 }
 
 Damage = function(_damage) {
@@ -90,5 +113,17 @@ Damage = function(_damage) {
 	
 	__health = clamp(__health + _damage, 0, __characterData.stats.hp);
 	
-	instance_create_depth(x, y, depth, ObjDamage).Initialize(_damage, _style);
+	instance_create_depth(
+		x + irandom_range(-12, 12),
+		y + irandom_range(-34, -8),
+		depth,
+		ObjDamage).Initialize(abs(_damage), _style);
+	
+	if(__health == 0) {
+		sprite_index = __spriteDead;
+		image_blend = c_gray;
+	} else {
+		sprite_index = __sprite;
+		image_blend = c_white;
+	}
 }

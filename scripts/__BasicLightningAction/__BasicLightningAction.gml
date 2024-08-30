@@ -23,7 +23,7 @@ function BasicLightningAction() : Action() constructor {
 					var _effect = instance_create_depth(_victim.x, _victim.y, _victim.depth + 1, ObjBasicEffect);
 					_effect.Initialize(SprLightning, 24);
 					_effect.image_yscale = 100;
-					_effect.image_angle = -45;
+					_effect.image_angle = -25;
 					__strikeTimer.Reset();
 					__target_index++;
 					

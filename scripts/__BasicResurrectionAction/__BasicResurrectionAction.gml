@@ -16,7 +16,7 @@ function BasicResurrectionAction() : Action() constructor {
 				__zSpeed += __zGravity;
 				_attacker.y = ystart + __z;
 				if(__z == 0) {
-					state++;
+					__state++;
 					break;
 				}
 				break;
@@ -44,7 +44,7 @@ function BasicResurrectionAction() : Action() constructor {
 				__zSpeed += __zGravity;
 				_victim.y = ystart + __z;
 				if(__z == 0) {
-					state++;
+					__state++;
 					break;
 				}
 				break;

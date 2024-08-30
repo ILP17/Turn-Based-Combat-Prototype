@@ -13,9 +13,9 @@ function BasicHealAction() : Action() constructor {
 			case 0:
 				__z = min(__z + __zSpeed, 0);
 				__zSpeed += __zGravity;
-				
+				_attacker.y = _attacker.ystart + __z;
 				if(__z == 0) {
-					state++;
+					__state++;
 					break;
 				}
 				break;

@@ -18,7 +18,7 @@ function BasicExplosionAction() : Action() constructor {
 				if(__strikeTimer.IsFinished()) {
 					__strikeCount --;
 					
-					var _victim = __targets[irandom(array_length(__targets))];
+					var _victim = __targets[irandom(array_length(__targets) - 1)];
 					var _effect = instance_create_depth(
 						_victim.x + irandom_range(-24, 24),
 						_victim.y + irandom_range(-16, 16),
@@ -46,6 +46,7 @@ function BasicExplosionAction() : Action() constructor {
 					_effect.Initialize(SprExplosion);
 					_victim.Damage(GetDamage(_attacker, 0.20, _victim, AT_STAT, DF_STAT));
 				}
+				__state ++;
 				break;
 			case 3:
 				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart, 8)) {

@@ -88,8 +88,7 @@ PreTurn = function() {
 		return;
 	}
 	
-	var _turnInstance = currentTurnOrder[__currentTurnIndex],
-		_target = noone;
+	var _turnInstance = currentTurnOrder[__currentTurnIndex];
 	
 	if(!_turnInstance.CanAct()) {
 		// skipTurn
@@ -112,14 +111,13 @@ PreTurn = function() {
 	
 	var _turn_action_context = _turnInstance.GetAction(new TurnContext(_turnInstance, _myTeam, _enemyTeam));
 	
-	if(_target == noone) {
+	if(array_length(_turn_action_context.targets) == 0) {
 		//assume end of battle
 		battleState = BattleStates.PostBattle;
 		return;
 	}
 	
-	_actionInstance.Initialize(_turn_action_context.action, _turn_action_context.targets);
-	array_push(__actions, _actionInstance);
+	array_push(__actions, _turn_action_context.action);
 	battleState = BattleStates.Turn;
 }
 

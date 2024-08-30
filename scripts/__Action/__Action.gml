@@ -13,7 +13,7 @@ function Action() constructor {
 	}
 	
 	GetDamage = function(_attacker, _scalar, _victim, _attack_stat_key, _defense_stat_key) {
-		var _damage = floor(_attacker.GetStat(_attack_stat_key) * _scalar * random_range(0.8, 1));
+		var _damage = floor(_attacker.GetStat(_attack_stat_key) * -_scalar * random_range(0.8, 1));
 		
 		if(_scalar < 0) {
 			_damage = max(_damage - _victim.GetStat(_defense_stat_key), 1);

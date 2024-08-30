@@ -1,5 +1,5 @@
 var _value = 0;
-var _t = min(__time / 20, 1);
+var _t = min(__time / 15, 1);
 
 switch(style) {
 	case 0:
@@ -27,7 +27,7 @@ switch(style) {
 image_xscale = _value;
 image_yscale = _value;
 
-if(__time >= 60) {
+if(__time >= 50) {
 	instance_destroy();
 	exit;
 }

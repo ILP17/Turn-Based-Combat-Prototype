@@ -44,6 +44,7 @@
   "name":"Turn Based Combat Prototype",
   "resources":[
     {"id":{"name":"AnimCurveElastic","path":"animcurves/AnimCurveElastic/AnimCurveElastic.yy",},},
+    {"id":{"name":"FonUI","path":"fonts/FonUI/FonUI.yy",},},
     {"id":{"name":"FonUISmall","path":"fonts/FonUISmall/FonUISmall.yy",},},
     {"id":{"name":"ObjBasicEffect","path":"objects/ObjBasicEffect/ObjBasicEffect.yy",},},
     {"id":{"name":"ObjBattleParticipant","path":"objects/ObjBattleParticipant/ObjBattleParticipant.yy",},},
@@ -68,6 +69,7 @@
     {"id":{"name":"__Character","path":"scripts/__Character/__Character.yy",},},
     {"id":{"name":"__HealActionStrategy","path":"scripts/__HealActionStrategy/__HealActionStrategy.yy",},},
     {"id":{"name":"__HealTargetStrategy","path":"scripts/__HealTargetStrategy/__HealTargetStrategy.yy",},},
+    {"id":{"name":"__ReviveActionStrategy","path":"scripts/__ReviveActionStrategy/__ReviveActionStrategy.yy",},},
     {"id":{"name":"__ReviveTargetStrategy","path":"scripts/__ReviveTargetStrategy/__ReviveTargetStrategy.yy",},},
     {"id":{"name":"__SimpleTimer","path":"scripts/__SimpleTimer/__SimpleTimer.yy",},},
     {"id":{"name":"__TargetStrategy","path":"scripts/__TargetStrategy/__TargetStrategy.yy",},},

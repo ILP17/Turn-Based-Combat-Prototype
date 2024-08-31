@@ -54,18 +54,21 @@ GetAction = function(_turn_context) {
 	
 	//Get action
 	var _chosen_weight = random(_total_weight),
-		_last_weight = 0,
+		_min_weight = 0,
+		_max_weight = 0,
 		_action;
 	for(var i = 0; i < array_length(_weights); i++) {
 		if(_weights[i] == 0) {
 			continue;
 		}
 		
-		if(_chosen_weight >= _last_weight && _chosen_weight <= _weights[i] + _last_weight) {
+		_max_weight = _weights[i] + _min_weight;
+		
+		if(_chosen_weight >= _min_weight && _chosen_weight <= _max_weight) {
 			_action = _actions[i];
 			break;
 		}
-		_last_weight = _weights[i] + _last_weight;
+		_min_weight = _max_weight;
 	}
 	
 	//Get targets

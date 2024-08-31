@@ -95,7 +95,7 @@ PreTurn = function() {
 		return;
 	}
 	
-	_turnInstance.DecayBuffs();
+	_turn_instance.DecayBuffs();
 	
 	var _turn_context = new TurnContext(_turn_instance, __alphaTeam, __betaTeam);
 	var _turn_action_context = _turn_instance.GetAction(_turn_context);

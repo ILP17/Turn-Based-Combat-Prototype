@@ -21,7 +21,7 @@ function BasicBuffAction() : Action() constructor {
 				}
 				break;
 			case 1:
-				__part_system = part_system_create_layer("Instances", false, PartSysHeal);
+				__part_system = part_system_create_layer("Instances", false, PartSysValorBuff);
 				part_system_position(__part_system, _victim.x, _victim.y);
 				__state++;
 				break;

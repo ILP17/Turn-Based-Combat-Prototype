@@ -45,7 +45,7 @@ function BasicExplosionAction() : Action() constructor {
 						_victim.y,
 						_victim.depth + 1, ObjBasicEffect);
 					_effect.Initialize(SprExplosion);
-					_victim.Damage(GetDamage(_attacker, 0.3, _victim, AT_STAT, DF_STAT));
+					_victim.Damage(GetDamage(_attacker, 0.3, _victim, MAG_STAT, DF_STAT));
 				}
 				__state ++;
 				break;

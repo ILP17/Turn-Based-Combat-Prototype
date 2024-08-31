@@ -36,7 +36,7 @@ function BasicResurrectionAction() : Action() constructor {
 				}
 				break;
 			case 3:
-				_victim.Damage(GetDamageNoDefense(_attacker, -0.25, _victim, MAG_STAT));
+				_victim.Damage(GetDamageNoDefense(_attacker, -0.30, _victim, MAG_STAT));
 				__state++;
 				__z = 0;
 				__zSpeed = -14;

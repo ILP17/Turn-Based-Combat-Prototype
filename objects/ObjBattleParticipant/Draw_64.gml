@@ -21,17 +21,24 @@ draw_rectangle_color(_x1, _y1, _x2, _y2, c_black, c_black, c_black, c_black, fal
 
 _x1 += 2 * _view_ratio;
 _x2 -= 2 * _view_ratio;
-draw_rectangle_color(
-	_x1,
-	_y1 + 2 * _view_ratio,
-	_x1 + abs(_x2 - _x1) * _display_health_ratio,
-	_y2 - 2 * _view_ratio,
-	__healthColor,
-	__healthColor,
-	__healthColor,
-	__healthColor,
-	false);
+
+if(__healthDisplay > 0) {
+	draw_rectangle_color(
+		_x1,
+		_y1 + 2 * _view_ratio,
+		_x1 + abs(_x2 - _x1) * _display_health_ratio,
+		_y2 - 2 * _view_ratio,
+		__healthColor,
+		__healthColor,
+		__healthColor,
+		__healthColor,
+		false);
+}
 
 for(var i = 0; i < array_length(__buffs); i++) {
-	draw_sprite(SprBuffIcons, __buffs[i].iconIndex, _x1 - 18 - (18 * image_xscale * i), _y1);
+	draw_sprite(
+		SprBuffIcons,
+		__buffs[i].iconIndex,
+		(sign(image_xscale) == 1 ? _x1 : _x2) + (-18 - 18 * i) * image_xscale,
+		_y1);
 }

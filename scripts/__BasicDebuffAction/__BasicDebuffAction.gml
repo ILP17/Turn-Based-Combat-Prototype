@@ -22,7 +22,7 @@ function BasicDebuffAction() : Action() constructor {
 				break;
 			case 1:
 				__part_system = part_system_create_layer("Instances", false, PartSysStaggerBuff);
-				part_system_position(__part_system, _victim.x, _victim.y - 20);
+				part_system_position(__part_system, _victim.x, _victim.y - 34);
 				__state++;
 				break;
 			case 2:

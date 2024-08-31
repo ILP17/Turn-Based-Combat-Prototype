@@ -1,4 +1,5 @@
 /**
+	This is the "choice" of a battle participant containing the chosen action and selected targets
 	@param {struct.Action} _action
 	@param {Array<Id.Instance>} _targets
 */

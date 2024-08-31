@@ -11,14 +11,12 @@ __currentTurnIndex = 0;
 __alphaTeam = [];
 __betaTeam = [];
 
-battleParticipants = [];
-battleParticipants = [];
 currentTurnOrder = [];
 battleState = BattleStates.NA;
 __actions = [];							//This will act as a queue for actions to perform
 
 __SortBySpeed = function(_bp1, _bp2) {
-	return _bp1.stats.sp - _bp2.stats.sp;
+	return _bp1.GetStat(SP_STAT) - _bp2.GetStat(SP_STAT);
 }
 
 __SignalTurnEnd = function() {
@@ -36,7 +34,7 @@ __CheckTeamAlive = function(_team) {
 }
 
 CreateTurnOrder = function() {
-	array_sort(battleParticipants, __SortBySpeed);
+	array_sort(currentTurnOrder, __SortBySpeed);
 }
 
 PreBattle = function() {
@@ -72,6 +70,7 @@ PreBattle = function() {
 	}
 	
 	currentTurnOrder = array_concat(__alphaTeam, __betaTeam);
+	CreateTurnOrder();
 	battleState = BattleStates.PreTurn;
 }
 
@@ -88,9 +87,9 @@ PreTurn = function() {
 		return;
 	}
 	
-	var _turnInstance = currentTurnOrder[__currentTurnIndex];
+	var _turn_instance = currentTurnOrder[__currentTurnIndex];
 	
-	if(!_turnInstance.CanAct()) {
+	if(!_turn_instance.CanAct()) {
 		// skipTurn
 		battleState = BattleStates.PostTurn;
 		return;
@@ -98,26 +97,8 @@ PreTurn = function() {
 	
 	_turnInstance.DecayBuffs();
 	
-	var _myTeam,
-		_enemyTeam;
-	
-	if(array_contains(__alphaTeam, _turnInstance)) {
-		_myTeam = __alphaTeam;
-		_enemyTeam = __betaTeam;
-	}
-	
-	if(array_contains(__betaTeam, _turnInstance)) {
-		_myTeam = __betaTeam;
-		_enemyTeam = __alphaTeam;
-	}
-	
-	var _turn_action_context = _turnInstance.GetAction(new TurnContext(_turnInstance, _myTeam, _enemyTeam));
-	
-	if(array_length(_turn_action_context.targets) == 0) {
-		//assume end of battle
-		battleState = BattleStates.PostBattle;
-		return;
-	}
+	var _turn_context = new TurnContext(_turn_instance, __alphaTeam, __betaTeam);
+	var _turn_action_context = _turn_instance.GetAction(_turn_context);
 	
 	array_push(__actions, _turn_action_context.action);
 	battleState = BattleStates.Turn;
@@ -142,6 +123,7 @@ PostTurn = function() {
 	__currentTurnIndex++;
 	
 	if(__currentTurnIndex >= array_length(currentTurnOrder)) {
+		CreateTurnOrder();
 		__currentTurnIndex = 0;
 	}
 	battleState = BattleStates.PreTurn;

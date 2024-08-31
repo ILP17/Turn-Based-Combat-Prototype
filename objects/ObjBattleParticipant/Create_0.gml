@@ -77,11 +77,11 @@ GetAction = function(_turn_context) {
 		throw ($"ERROR: {script_get_name(_action_metadata.targetStrategy)} produced no targets!");
 	}
 	
-	var _actionInstance = new _action();
+	var _action_instance = new _action();
 	
-	_actionInstance.Initialize([self], _targets);
+	_action_instance.Initialize([self], _targets);
 	
-	return new TurnActionContext(_actionInstance, _targets);
+	return new TurnActionContext(_action_instance, _targets);
 }
 
 GetHealthRatio = function() {

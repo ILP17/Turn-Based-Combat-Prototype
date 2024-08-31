@@ -1,7 +1,21 @@
-function TurnContext(_turn_instance, _my_team, _enemy_team) constructor {
+/**
+	This is the context of the current turn where ally and enemy teams are distinguished
+	@param {Id.Instance} _turn_instance
+	@param {Array<Id.Instance>} _alpha_team
+	@param {Array<Id.Instance>} _beta_team
+*/
+function TurnContext(_turn_instance, _alpha_team, _beta_team) constructor {
 	turnInstance = _turn_instance;
-	myTeam = _my_team;
-	enemyTeam = _enemy_team;
+	myTeam = [];
+	enemyTeam = [];
+	
+	if(array_contains(_alpha_team, turnInstance)) {
+		myTeam = _alpha_team;
+		enemyTeam = _beta_team;
+	} else if(array_contains(_beta_team, turnInstance)) {
+		myTeam = _beta_team;
+		enemyTeam = _alpha_team;
+	}
 	
 	static ResolveTargets = function(_action_instance) {
 		var _targets = [];

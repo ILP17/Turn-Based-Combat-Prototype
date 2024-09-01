@@ -91,9 +91,10 @@ OnBattleParticipantDeath = function(_battle_participant) {
 PreBattle = function() {
 	var _character_data,
 		_battle_participant = noone,
+		_base_y = room_height / 2,
 		_player_x = room_width / 3,
 		_monster_x = room_width * (2 / 3),
-		_y = (room_height / 2) - (array_length(global.playerParty) * 34) / 2;
+		_y = _base_y - array_length(global.playerParty) * 34 / 2;
 	
 	for(var i = 0; i < array_length(global.playerParty); i++) {
 		_character_data = global.playerParty[i];
@@ -103,7 +104,7 @@ PreBattle = function() {
 		array_push(__alphaTeam, _battle_participant);
 	}
 	
-	_y = (room_height / 2) - (array_length(global.enemyParty) * 34 / 2);
+	_y = _base_y - array_length(global.enemyParty) * 34 / 2;
 	for(var i = 0; i < array_length(global.enemyParty); i++) {
 		_character_data = global.enemyParty[i];
 		

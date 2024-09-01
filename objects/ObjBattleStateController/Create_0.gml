@@ -46,8 +46,13 @@ __CreateTurnOrder = function() {
 	array_sort(currentTurnOrder, __SortBySpeed);
 }
 
-AddDelayedAction = function(_battle_participant, _action) {
-	__.scheduler.AddDelayedAction(new DelayedAction(_battle_participant, _action, 1));
+/**
+	@param {Id.Instance} _battle_participant
+	@param {struct.Action} _action
+	@param {real} _turn_count the number of turns to wait, 0 will mean the very next turn
+*/
+AddDelayedAction = function(_battle_participant, _action, _turn_count) {
+	__.scheduler.AddDelayedAction(new DelayedAction(_battle_participant, _action, _turn_count));
 }
 
 PreBattle = function() {

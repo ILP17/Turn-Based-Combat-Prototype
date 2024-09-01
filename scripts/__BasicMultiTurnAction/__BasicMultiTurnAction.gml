@@ -24,7 +24,7 @@ function BasicMultiTurnAction() : Action() constructor {
 				
 				_action.Initialize(__attackers, __targets);
 				
-				ObjBattleStateController.AddDelayedAction(_attacker, _action);
+				ObjBattleStateController.AddDelayedAction(_attacker, _action, 0);
 				_attacker.AddEffect(instance_create_depth(_attacker.x, _attacker.y, _attacker.depth + 1, ObjAngelBeamCharge));
 				__state++;
 				break;

@@ -4,7 +4,7 @@ global.playerParty = [
 		name: "Kartoffel",
 		sprite: SprMage,
 		stats: new Stats({ hp: 35, at: 12, df: 12, mag: 25, sp: 5 }),
-		actions: [ BasicHitAction, BasicLightningAction, BasicExplosionAction],
+		actions: [ BasicLightningAction],
 		strategies: [BasicActionStrategy] }),
 	new Character({ name: "#1 Harpy Fan", stats: new Stats({ hp: 50, at: 26, df: 15, sp: 3 }) }),
 	new Character({

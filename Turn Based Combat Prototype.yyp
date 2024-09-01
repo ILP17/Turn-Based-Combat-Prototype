@@ -89,6 +89,7 @@
     {"id":{"name":"__TargetStrategy","path":"scripts/__TargetStrategy/__TargetStrategy.yy",},},
     {"id":{"name":"__TurnActionContext","path":"scripts/__TurnActionContext/__TurnActionContext.yy",},},
     {"id":{"name":"__TurnContext","path":"scripts/__TurnContext/__TurnContext.yy",},},
+    {"id":{"name":"Array_Scripts","path":"scripts/Array_Scripts/Array_Scripts.yy",},},
     {"id":{"name":"BattleDefinition","path":"scripts/BattleDefinition/BattleDefinition.yy",},},
     {"id":{"name":"Buffs","path":"scripts/Buffs/Buffs.yy",},},
     {"id":{"name":"Instance_Scripts","path":"scripts/Instance_Scripts/Instance_Scripts.yy",},},

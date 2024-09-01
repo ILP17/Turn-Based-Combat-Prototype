@@ -17,7 +17,7 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
 	}
 	
 	static __TryAddAdjacentTarget = function(_index, _valid_targets) {
-		if(_index < array_length(_valid_targets) && _valid_targets[_index].IsTargetable()) {
+		if(scr_array_contains_index(_valid_targets, _index) && _valid_targets[_index].IsTargetable()) {
 			array_push(__targets, _valid_targets[_index]);
 		}
 	}
@@ -48,10 +48,9 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
 	*/
 	DelayedActionTargetsCheck = function(_action, _turn_context) {
 		var _current_targets = _action.GetTargets();
+		var _action_metadata = _action.GetMetadata();
 		var _valid = IsTargetValid(_current_targets[0]);
 		var _new_targets = _current_targets;
-		
-		var _action_metadata = scr_get_action_metadata_from_instance(_action);
 		var _targets = _turn_context.ResolveTargets(_action_metadata);
 		
 		if(!_valid) {
@@ -61,7 +60,7 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
 			if(array_length(_current_targets) >= 2 && !IsTargetValid(_current_targets[1])) {
 				array_delete(_current_targets, _target_index, 1);
 			}
-			 _target_index = array_get_index(_targets, _current_targets[2]);
+			_target_index = array_get_index(_targets, _current_targets[2]);
 			if(array_length(_current_targets) >= 3 && !IsTargetValid(_current_targets[2])) {
 				array_delete(_current_targets, _target_index, 1);
 			}

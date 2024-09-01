@@ -10,6 +10,10 @@ function Scheduler() constructor {
 		);
 	}
 	
+	static __FilterByBattleParticipant = function(_delayed_action, _index) {
+		return _delayed_action.battleParticipant == __battle_participant_to_search_for;
+	}
+	
 	/**
 		@param {struct.Action} _action
 	*/
@@ -63,14 +67,10 @@ function Scheduler() constructor {
 		@param {Id.Instance} _battle_participant
 	*/
 	__battle_participant_to_search_for = noone;
-	static TickDelayedAction = function(_battle_participant) {
-		static __Filter = function(_delayed_action, _index) {
-			return _delayed_action.battleParticipant == __battle_participant_to_search_for;
-		}
-		
+	static TickDelayedActions = function(_battle_participant) {		
 		__battle_participant_to_search_for = _battle_participant;
 		
-		var _delayed_actions = array_filter(__delayedActions, __Filter),
+		var _delayed_actions = array_filter(__delayedActions, __FilterByBattleParticipant),
 			_delayed_action;
 		
 		for(var i = 0; i < array_length(_delayed_actions); i++) {
@@ -88,14 +88,10 @@ function Scheduler() constructor {
 	/**
 		@param {Id.Instance} _battle_participant
 	*/
-	static RemoveDelayedActionsFor = function(_battle_participant) {
-		static __Filter = function(_delayed_action, _index) {
-			return _delayed_action.battleParticipant == __battle_participant_to_search_for;
-		}
-		
+	static RemoveDelayedActionsFor = function(_battle_participant) {		
 		__battle_participant_to_search_for = _battle_participant;
 		
-		var _delayed_actions = array_filter(__delayedActions, __Filter),
+		var _delayed_actions = array_filter(__delayedActions, __FilterByBattleParticipant),
 			_delayed_action;
 		
 		for(var i = 0; i < array_length(_delayed_actions); i++) {
@@ -109,14 +105,10 @@ function Scheduler() constructor {
 		@param {Id.Instance} _battle_participant
 		@return {bool}
 	*/
-	static HasDelayedActionFor = function(_battle_participant) {
-		static __Filter = function(_delayed_action, _index) {
-			return _delayed_action.battleParticipant == __battle_participant_to_search_for;
-		}
-		
+	static HasDelayedActionFor = function(_battle_participant) {		
 		__battle_participant_to_search_for = _battle_participant;
 		
-		var _actions = array_filter(__delayedActions, __Filter);
+		var _actions = array_filter(__delayedActions, __FilterByBattleParticipant);
 		
 		return array_length(_actions) > 0;
 	}

@@ -138,7 +138,7 @@ PreTurn = function() {
 	
 	var _turn_context = new TurnContext(_turn_instance, __alphaTeam, __betaTeam);
 	
-	__.scheduler.TickDelayedAction(_turn_instance);
+	__.scheduler.TickDelayedActions(_turn_instance);
 	
 	if(__.scheduler.HasReadyAction()) {
 		var _action = __.scheduler.GetCurrentAction();

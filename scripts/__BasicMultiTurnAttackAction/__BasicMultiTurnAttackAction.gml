@@ -6,7 +6,11 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 	__maxRotateSpeed = 25;
 	__beamLength = 0;
 	
-	__DoRotation = function(_instance, _rotation) {
+	__DoRotation = function(_instance) {
+		__SetRotation(_instance, _instance.image_angle - __rotateSpeed * _instance.image_xscale);
+	}
+	
+	__SetRotation = function(_instance, _rotation) {
 		_instance.image_angle = _rotation;
 		
 		var _length = _instance.sprite_height / 2;
@@ -28,7 +32,7 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 		
 		switch(__state) {
 			case 0:
-				__DoRotation(_attacker, _attacker.image_angle + __rotateSpeed);
+				__DoRotation(_attacker);
 				if(__rotateSpeed >= __maxRotateSpeed) {
 					__state++;
 					break;
@@ -36,7 +40,7 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 				__rotateSpeed += 0.5;
 				break;
 			case 1:
-				__DoRotation(_attacker, _attacker.image_angle + __rotateSpeed);
+				__DoRotation(_attacker);
 				__effect = instance_create_depth(_attacker.x, _attacker.y - 12, _attacker.depth + 1, ObjBasicEffect);
 				__effect.Initialize(SprAngelBeam, 9999);
 				__effect.image_xscale = __beamLength / 64;
@@ -44,9 +48,9 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 				__state++;
 				break;
 			case 2:
-				__DoRotation(_attacker, _attacker.image_angle + __rotateSpeed);
+				__DoRotation(_attacker);
 				var _distance = point_distance(_attacker.x, _attacker.y - 12, _victim.x, _victim.y - 12);
-				__beamLength += min(12, _distance - __beamLength);
+				__beamLength += min(16, _distance - __beamLength);
 				__effect.image_xscale = __beamLength / 64;
 				
 				if(__beamLength == _distance) {
@@ -56,14 +60,15 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 				
 				break;
 			case 3:
-				__DoRotation(_attacker, _attacker.image_angle + __rotateSpeed);
+				__DoRotation(_attacker);
 				_attacker.RemoveEffect(ObjAngelBeamCharge);
-				_victim.Damage(GetDamage(_attacker, 1.5, _victim, MAG_STAT, DF_STAT));
+				_victim.Damage(GetDamage(_attacker, 1.25, _victim, MAG_STAT, DF_STAT));
 				__state++;
 				break;
 			case 4:
+				__DoRotation(_attacker);
 				if(__effect.image_yscale - 0.05 <= 0) {
-					__DoRotation(_attacker, 0);
+					__SetRotation(_attacker, 0);
 					instance_destroy(__effect);
 					__state++;
 					break;

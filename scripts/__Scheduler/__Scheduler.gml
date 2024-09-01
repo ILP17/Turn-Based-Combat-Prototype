@@ -17,6 +17,17 @@ function Scheduler() constructor {
 		array_push(__actions, _action);
 	}
 	
+	/**
+		@return {struct.Action|undefined}
+	*/
+	static GetCurrentAction = function() {
+		if(array_length(__actions) == 0) {
+			return undefined;
+		}
+		
+		return __actions[0];
+	}
+	
 	static ProcessCurrentAction = function() {
 		if(array_length(__actions) == 0) {
 			return;
@@ -27,6 +38,10 @@ function Scheduler() constructor {
 		if(__actions[0].HasEnded()) {
 			array_shift(__actions);
 		}
+	}
+	
+	static TrashCurrentAction = function() {
+		array_shift(__actions);
 	}
 	
 	/**

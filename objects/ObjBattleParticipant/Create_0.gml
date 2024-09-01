@@ -7,36 +7,9 @@ __healthDisplay = 0;
 __buffs = [];
 
 /**
-	@param {struct.Character} _character_data
-*/
-Initialize = function(_character_data) {
-	__characterData = _character_data;
-	
-	__health = __characterData.stats.hp;
-	__healthDisplay = __health;
-	
-	var _name = sprite_get_name(__characterData.sprite);
-	__sprite = __characterData.sprite;
-	__spriteDead = asset_get_index(_name + "Dead");
-	sprite_index = __sprite;
-}
-
-GetStat = function(_stat_key) {
-	var _value = __characterData.stats[$ _stat_key];
-	
-	for(var i = 0; i < array_length(__buffs); i++) {
-		_value *= __buffs[i].stats[$ _stat_key];
-	}
-	
-	return _value;
-}
-
-/**
 	@param {struct.TurnContext} _turn_context
-	@return {struct.TurnActionContext}
 */
-GetAction = function(_turn_context) {
-	//Get action
+__AIDetermineAction = function(_turn_context) {
 	var _strategies = __characterData.strategies,
 		_actions = __characterData.actions,
 		_weights = undefined;
@@ -71,16 +44,51 @@ GetAction = function(_turn_context) {
 		_min_weight = _max_weight;
 	}
 	
+	return _action;
+}
+
+/**
+	@param {struct.Character} _character_data
+*/
+Initialize = function(_character_data) {
+	__characterData = _character_data;
+	
+	__health = __characterData.stats.hp;
+	__healthDisplay = __health;
+	
+	var _name = sprite_get_name(__characterData.sprite);
+	__sprite = __characterData.sprite;
+	__spriteDead = asset_get_index(_name + "Dead");
+	sprite_index = __sprite;
+}
+
+GetStat = function(_stat_key) {
+	var _value = __characterData.stats[$ _stat_key];
+	
+	for(var i = 0; i < array_length(__buffs); i++) {
+		_value *= __buffs[i].stats[$ _stat_key];
+	}
+	
+	return _value;
+}
+
+/**
+	@param {struct.TurnContext} _turn_context
+	@return {struct.TurnActionContext}
+*/
+GetAction = function(_turn_context) {
+	//Get action
+	var _action = __AIDetermineAction(_turn_context);
+	
 	//Get targets
-	var _action_metadata = scr_get_action_metadata(_action);
-	var _target_strategy = new _action_metadata.targetStrategy();
+	var _action_instance = new _action();
+	var _action_metadata = _action_instance.GetMetadata();
+	var _target_strategy = _action_instance.CreateTargetStrategy();
 	var _targets = _target_strategy.GetTarget(_turn_context.ResolveTargets(_action_metadata), _action_metadata);
 	
 	if(array_length(_targets) == 0) {
-		throw ($"ERROR: {script_get_name(_action_metadata.targetStrategy)} produced no targets!");
+		throw ($"ERROR: {instanceof(_target_strategy)} produced no targets!");
 	}
-	
-	var _action_instance = new _action();
 	
 	_action_instance.Initialize([id], _targets);
 	

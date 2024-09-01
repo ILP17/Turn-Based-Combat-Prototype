@@ -104,10 +104,24 @@ PreTurn = function() {
 	}
 	
 	var _turn_instance = currentTurnOrder[__currentTurnIndex];
+	var _turn_context = new TurnContext(_turn_instance, __alphaTeam, __betaTeam);
 	
 	__.scheduler.TickDelayedAction(_turn_instance);
 	
 	if(__.scheduler.HasReadyAction()) {
+		var _action = __.scheduler.GetCurrentAction();
+		var _target_strategy = _action.CreateTargetStrategy();
+		var _new_targets = _target_strategy.DelayedActionTargetsCheck(_action, _turn_context);
+		
+		if(array_length(_new_targets) == 0) {
+			_action.Fail();
+			__.scheduler.TrashCurrentAction();
+			battleState = BattleStates.PostTurn;
+			return;
+		}
+		
+		_action.Initialize([_turn_instance], _new_targets);
+		
 		battleState = BattleStates.Turn;
 		return;
 	}
@@ -118,7 +132,6 @@ PreTurn = function() {
 		return;
 	}
 	
-	var _turn_context = new TurnContext(_turn_instance, __alphaTeam, __betaTeam);
 	var _turn_action_context = _turn_instance.GetAction(_turn_context);
 	
 	__.scheduler.AddAction(_turn_action_context.action);

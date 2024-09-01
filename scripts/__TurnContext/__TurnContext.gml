@@ -17,10 +17,13 @@ function TurnContext(_turn_instance, _alpha_team, _beta_team) constructor {
 		enemyTeam = _alpha_team;
 	}
 	
-	static ResolveTargets = function(_action_instance) {
+	/**
+		@param {struct.ActionMetadata} _action_metadata
+	*/
+	static ResolveTargets = function(_action_metadata) {
 		var _targets = [];
 		
-		switch(_action_instance.targetType) {
+		switch(_action_metadata.targetType) {
 			case TargetType.Enemy:
 				_targets = enemyTeam;
 				break;

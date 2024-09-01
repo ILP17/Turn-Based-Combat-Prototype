@@ -8,11 +8,31 @@ function Action() constructor {
 		__targets = _targets;
 	}
 	
-	HasEnded = function() {
+	/**
+		@return {struct.ActionMetadata}
+	*/
+	static GetMetadata = function() {
+		return scr_get_action_metadata_from_instance(self);
+	}
+	
+	/**
+		@return {struct.TargetStrategy}
+	*/
+	static CreateTargetStrategy = function() {
+		var _action_metadata = scr_get_action_metadata_from_instance(self);
+		//Feather ignore once GM1045
+		return new _action_metadata.targetStrategy();
+	}
+	
+	static HasEnded = function() {
 		return __hasEnded;
 	}
 	
-	GetDamage = function(_attacker, _scalar, _victim, _attack_stat_key, _defense_stat_key) {
+	static GetTargets = function() {
+		return __targets;
+	}
+	
+	static GetDamage = function(_attacker, _scalar, _victim, _attack_stat_key, _defense_stat_key) {
 		var _damage = floor(_attacker.GetStat(_attack_stat_key) * -_scalar * random_range(0.8, 1));
 		
 		if(_scalar < 0) {
@@ -22,7 +42,7 @@ function Action() constructor {
 		return _damage;
 	}
 	
-	GetDamageNoDefense = function(_attacker, _scalar, _victim, _attack_stat_key) {
+	static GetDamageNoDefense = function(_attacker, _scalar, _victim, _attack_stat_key) {
 		var _damage = floor(_attacker.GetStat(_attack_stat_key) * -_scalar * random_range(0.8, 1));
 		
 		if(_scalar < 0) {

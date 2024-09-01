@@ -26,6 +26,10 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 			_instance.ystart + lengthdir_y(_distance, _direction))
 	}
 	
+	Fail = function() {
+		__attackers[0].RemoveEffect(ObjAngelBeamCharge);
+	}
+	
 	Run = function() {
 		var _attacker = __attackers[0],
 			_victim = __targets[0];

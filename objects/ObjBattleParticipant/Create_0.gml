@@ -188,9 +188,7 @@ Damage = function(_damage) {
 		ObjDamage).Initialize(abs(_damage), _style);
 	
 	if(__health == 0) {
-		ClearBuffs();
-		sprite_index = __spriteDead;
-		image_blend = c_gray;
+		__OnDeath();
 	} else {
 		sprite_index = __sprite;
 		image_blend = c_white;
@@ -198,6 +196,14 @@ Damage = function(_damage) {
 }
 
 __effects = {};
+
+__OnDeath = function() {
+	ClearBuffs();
+	RemoveAllEffect();
+	ObjBattleStateController.OnBattleParticipantDeath(id);
+	sprite_index = __spriteDead;
+	image_blend = c_gray;
+}
 
 /**
 	@param {Id.Instance} _effect_object
@@ -212,4 +218,13 @@ AddEffect = function(_effect_object) {
 RemoveEffect = function(_effect_object) {
 	instance_destroy(__effects[$ $"{_effect_object}"]);
 	variable_struct_remove(__effects, $"{_effect_object}");
+}
+
+RemoveAllEffect = function() {
+	static __RemoveEffect = function(_name, _effect) {
+		instance_destroy(_effect);
+	}
+	
+	struct_foreach(__effects, __RemoveEffect)
+	__effects = {};
 }

@@ -55,6 +55,15 @@ AddDelayedAction = function(_battle_participant, _action, _turn_count) {
 	__.scheduler.AddDelayedAction(new DelayedAction(_battle_participant, _action, _turn_count));
 }
 
+/**
+	@param {Id.Instance} _battle_participant
+	@param {struct.Action} _action
+	@param {real} _turn_count the number of turns to wait, 0 will mean the very next turn
+*/
+OnBattleParticipantDeath = function(_battle_participant) {
+	__.scheduler.RemoveDelayedActionsFor(_battle_participant);
+}
+
 PreBattle = function() {
 	var _characterData,
 		_battleParticipant = noone,
@@ -104,6 +113,13 @@ PreTurn = function() {
 	}
 	
 	var _turn_instance = currentTurnOrder[__currentTurnIndex];
+	
+	if(!_turn_instance.CanAct()) {
+		// skipTurn
+		battleState = BattleStates.PostTurn;
+		return;
+	}
+	
 	var _turn_context = new TurnContext(_turn_instance, __alphaTeam, __betaTeam);
 	
 	__.scheduler.TickDelayedAction(_turn_instance);
@@ -126,7 +142,7 @@ PreTurn = function() {
 		return;
 	}
 	
-	if(!_turn_instance.CanAct() || __.scheduler.HasDelayedActionFor(_turn_instance)) {
+	if(__.scheduler.HasDelayedActionFor(_turn_instance)) {
 		// skipTurn
 		battleState = BattleStates.PostTurn;
 		return;

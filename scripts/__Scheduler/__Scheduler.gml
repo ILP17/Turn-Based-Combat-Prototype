@@ -87,6 +87,26 @@ function Scheduler() constructor {
 	
 	/**
 		@param {Id.Instance} _battle_participant
+	*/
+	static RemoveDelayedActionsFor = function(_battle_participant) {
+		static __Filter = function(_delayed_action, _index) {
+			return _delayed_action.battleParticipant == __battle_participant_to_search_for;
+		}
+		
+		__battle_participant_to_search_for = _battle_participant;
+		
+		var _delayed_actions = array_filter(__delayedActions, __Filter),
+			_delayed_action;
+		
+		for(var i = 0; i < array_length(_delayed_actions); i++) {
+			_delayed_action = _delayed_actions[i];
+			__ConsumeDelayedAction(_delayed_actions[i]);
+			continue;
+		}
+	}
+	
+	/**
+		@param {Id.Instance} _battle_participant
 		@return {bool}
 	*/
 	static HasDelayedActionFor = function(_battle_participant) {

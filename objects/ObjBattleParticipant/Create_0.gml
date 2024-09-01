@@ -82,7 +82,7 @@ GetAction = function(_turn_context) {
 	
 	var _action_instance = new _action();
 	
-	_action_instance.Initialize([self], _targets);
+	_action_instance.Initialize([id], _targets);
 	
 	return new TurnActionContext(_action_instance, _targets);
 }
@@ -187,4 +187,21 @@ Damage = function(_damage) {
 		sprite_index = __sprite;
 		image_blend = c_white;
 	}
+}
+
+__effects = {};
+
+/**
+	@param {Id.Instance} _effect_object
+*/
+AddEffect = function(_effect_object) {
+	__effects[$ $"{_effect_object.object_index}"] = _effect_object;
+}
+
+/**
+	@param {Asset.GMObject} _effect_object
+*/
+RemoveEffect = function(_effect_object) {
+	instance_destroy(__effects[$ $"{_effect_object}"]);
+	variable_struct_remove(__effects, $"{_effect_object}");
 }

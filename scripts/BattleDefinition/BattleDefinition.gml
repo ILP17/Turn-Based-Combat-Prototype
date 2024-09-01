@@ -11,7 +11,7 @@ global.playerParty = [
 		name: "Angel",
 		sprite: SprHealer,
 		stats: new Stats({ hp: 30, at: 15, df: 10, mag: 32, sp: 6 }),
-		actions: [BasicHitAction, BasicHealAction, BasicResurrectionAction],
+		actions: [BasicHitAction, BasicHealAction, BasicResurrectionAction, BasicMultiTurnAction],
 		strategies: [BasicActionStrategy, HealActionStrategy, ReviveActionStrategy] })
 ];
 

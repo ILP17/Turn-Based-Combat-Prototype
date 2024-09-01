@@ -7,22 +7,30 @@ enum BattleStates {
 	PostBattle	// Exp Award Animation
 }
 
+__ = {};
+with (__) {
+	scheduler = new Scheduler();
+}
+
 __currentTurnIndex = 0;
 __alphaTeam = [];
 __betaTeam = [];
+__.scheduler = new Scheduler();
 
 currentTurnOrder = [];
 battleState = BattleStates.NA;
-__actions = [];							//This will act as a queue for actions to perform
 
+//@ignore
 __SortBySpeed = function(_bp1, _bp2) {
-	return _bp1.GetStat(SP_STAT) - _bp2.GetStat(SP_STAT);
+	return _bp2.GetStat(SP_STAT) - _bp1.GetStat(SP_STAT);
 }
 
+//@ignore
 __SignalTurnEnd = function() {
 	battleState = BattleStates.PostTurn;
 }
 
+//@ignore
 __CheckTeamAlive = function(_team) {
 	for(var i = 0; i < array_length(_team); i++) {
 		if(_team[i].IsAlive()) {
@@ -33,8 +41,13 @@ __CheckTeamAlive = function(_team) {
 	return false;
 }
 
-CreateTurnOrder = function() {
+//@ignore
+__CreateTurnOrder = function() {
 	array_sort(currentTurnOrder, __SortBySpeed);
+}
+
+AddDelayedAction = function(_battle_participant, _action) {
+	__.scheduler.AddDelayedAction(new DelayedAction(_battle_participant, _action, 1));
 }
 
 PreBattle = function() {
@@ -70,7 +83,7 @@ PreBattle = function() {
 	}
 	
 	currentTurnOrder = array_concat(__alphaTeam, __betaTeam);
-	CreateTurnOrder();
+	__CreateTurnOrder();
 	battleState = BattleStates.PreTurn;
 }
 
@@ -79,9 +92,7 @@ PreTurn = function() {
 		//player wins
 		battleState = BattleStates.PostBattle;
 		return;
-	}
-	
-	if(!__CheckTeamAlive(__betaTeam)) {
+	} else if(!__CheckTeamAlive(__betaTeam)) {
 		//monsters win
 		battleState = BattleStates.PostBattle;
 		return;
@@ -89,43 +100,43 @@ PreTurn = function() {
 	
 	var _turn_instance = currentTurnOrder[__currentTurnIndex];
 	
-	if(!_turn_instance.CanAct()) {
+	__.scheduler.TickDelayedAction(_turn_instance);
+	
+	if(__.scheduler.HasReadyAction()) {
+		battleState = BattleStates.Turn;
+		return;
+	}
+	
+	if(!_turn_instance.CanAct() || __.scheduler.HasDelayedActionFor(_turn_instance)) {
 		// skipTurn
 		battleState = BattleStates.PostTurn;
 		return;
 	}
 	
-	_turn_instance.DecayBuffs();
-	
 	var _turn_context = new TurnContext(_turn_instance, __alphaTeam, __betaTeam);
 	var _turn_action_context = _turn_instance.GetAction(_turn_context);
 	
-	array_push(__actions, _turn_action_context.action);
+	__.scheduler.AddAction(_turn_action_context.action);
 	battleState = BattleStates.Turn;
 }
 
 Turn = function() {
-	if(array_length(__actions) > 0)	{
-		__actions[0].Run();
-		
-		if(__actions[0].HasEnded()) {
-			array_shift(__actions);
-		}
-	}
+	__.scheduler.ProcessCurrentAction();
 	
-	if(array_length(__actions) == 0)	{
+	if(!__.scheduler.HasReadyAction()) {
 		battleState = BattleStates.PostTurn;
 	}
 }
 
 PostTurn = function() {
-	array_pop(__actions);
+	currentTurnOrder[__currentTurnIndex].DecayBuffs();
 	__currentTurnIndex++;
 	
 	if(__currentTurnIndex >= array_length(currentTurnOrder)) {
-		CreateTurnOrder();
+		__CreateTurnOrder();
 		__currentTurnIndex = 0;
 	}
+	
 	battleState = BattleStates.PreTurn;
 }
 

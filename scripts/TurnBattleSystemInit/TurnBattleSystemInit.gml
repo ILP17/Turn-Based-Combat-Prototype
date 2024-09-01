@@ -41,6 +41,8 @@ global.actionMetadata[$ nameof(BasicDebuffAction)] = new ActionMetadata({
 	effectType: EffectType.Buff,
 	targetStrategy: BuffTargetStrategy,
 	buffs: [StaggerBuff]});
+global.actionMetadata[$ nameof(BasicMultiTurnAction)] = new ActionMetadata();
+global.actionMetadata[$ nameof(BasicMultiTurnAttackAction)] = new ActionMetadata();
 #endregion
 
 /**

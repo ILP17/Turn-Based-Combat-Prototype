@@ -1,4 +1,4 @@
-switch(battleState) {
+switch(GetBattleState()) {
 	case BattleStates.PreBattle: PreBattle(); break;
 	case BattleStates.PreTurn: PreTurn(); break;
 	case BattleStates.Turn: Turn(); break;

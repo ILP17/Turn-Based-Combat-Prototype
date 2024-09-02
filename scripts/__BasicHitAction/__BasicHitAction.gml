@@ -7,7 +7,7 @@ function BasicHitAction() : Action() constructor {
 		
 		switch(__state) {
 			case 0:
-				if(scr_instance_move_to(_attacker, _victim.x, _victim.y, 8, 24)) {
+				if(ScrInstanceMoveTo(_attacker, _victim.x, _victim.y, 8, 24)) {
 					__state++;
 					break;
 				}
@@ -17,7 +17,7 @@ function BasicHitAction() : Action() constructor {
 				__state++;
 				break;
 			case 2:
-				if(scr_instance_move_to(_attacker, _attacker.xstart, _attacker.ystart, 8)) {
+				if(ScrInstanceMoveTo(_attacker, _attacker.xstart, _attacker.ystart, 8)) {
 					__state++;
 					break;
 				}

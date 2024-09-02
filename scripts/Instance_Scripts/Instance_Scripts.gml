@@ -3,7 +3,7 @@
 	@param {real} _x
 	@param {real} _y
 */
-function scr_instance_set_pos(_instance, _x, _y) {
+function ScrInstanceSetPos(_instance, _x, _y) {
 	_instance.x = _x;
 	_instance.y = _y;
 }
@@ -15,7 +15,7 @@ function scr_instance_set_pos(_instance, _x, _y) {
 	@param {real} _step
 	@param {real} _padding
 */
-function scr_instance_move_to(_instance, _x, _y, _step, _padding = 0) {
+function ScrInstanceMoveTo(_instance, _x, _y, _step, _padding = 0) {
 	var _distance = point_distance(_instance.x, _instance.y, _x, _y),
 		_direction = point_direction(_instance.x, _instance.y, _x, _y);
 	
@@ -36,7 +36,7 @@ function scr_instance_move_to(_instance, _x, _y, _step, _padding = 0) {
 	@param {real} _x
 	@param {real} _y
 */
-function scr_instance_set_scale(_instance, _x, _y) {
+function ScrInstanceSetScale(_instance, _x, _y) {
 	_instance.image_xscale = _x;
 	_instance.image_yscale = _y;
 }

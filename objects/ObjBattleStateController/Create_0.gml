@@ -7,68 +7,72 @@ enum BattleStates {
 	PostBattle	// Exp Award Animation
 }
 
+var _self = self;
 __ = {};
 with (__) {
 	scheduler = new Scheduler();
-}
+	currentTurnIndex = 0;
+	alphaTeam = [];
+	betaTeam = [];
+	currentTurnOrder = [];
+	battleState = BattleStates.NA;
+	
+	SortBySpeed = method(_self, function(_bp1, _bp2) {
+		return _bp2.GetStat(SP_STAT) - _bp1.GetStat(SP_STAT);
+	});
 
-__currentTurnIndex = 0;
-__alphaTeam = [];
-__betaTeam = [];
-__.scheduler = new Scheduler();
+	SignalTurnEnd = method(_self, function() {
+		__.battleState = BattleStates.PostTurn;
+	});
 
-currentTurnOrder = [];
-battleState = BattleStates.NA;
+	CheckTeamAlive = method(_self, function(_team) {
+		for(var i = 0; i < array_length(_team); i++) {
+			if(_team[i].IsAlive()) {
+				return true;
+			}
+		}
+	
+		return false;
+	});
 
-//@ignore
-__SortBySpeed = function(_bp1, _bp2) {
-	return _bp2.GetStat(SP_STAT) - _bp1.GetStat(SP_STAT);
-}
+	CreateTurnOrder = method(_self, function() {
+		array_sort(__.currentTurnOrder, __.SortBySpeed);
+	});
 
-//@ignore
-__SignalTurnEnd = function() {
-	battleState = BattleStates.PostTurn;
-}
+	SkipTurn = method(_self, function(_should_skip_turn) {
+		if(!_should_skip_turn) {
+			return false;
+		}
+	
+		__.battleState = BattleStates.PostTurn;
+		return true;
+	});
 
-//@ignore
-__CheckTeamAlive = function(_team) {
-	for(var i = 0; i < array_length(_team); i++) {
-		if(_team[i].IsAlive()) {
+	BattleHasVictor = method(_self, function() {
+		if(!__.CheckTeamAlive(__.alphaTeam)) {
+			//player wins
+			__.battleState = BattleStates.PostBattle;
+			return true;
+		} else if(!__.CheckTeamAlive(__.betaTeam)) {
+			//monsters win
+			__.battleState = BattleStates.PostBattle;
 			return true;
 		}
-	}
 	
-	return false;
-}
-
-//@ignore
-__CreateTurnOrder = function() {
-	array_sort(currentTurnOrder, __SortBySpeed);
-}
-
-//@ignore
-__SkipTurn = function(_should_skip_turn) {
-	if(!_should_skip_turn) {
 		return false;
-	}
-	
-	battleState = BattleStates.PostTurn;
-	return true;
+	});
 }
 
-//@ignore
-__BattleHasVictor = function() {
-	if(!__CheckTeamAlive(__alphaTeam)) {
-		//player wins
-		battleState = BattleStates.PostBattle;
-		return true;
-	} else if(!__CheckTeamAlive(__betaTeam)) {
-		//monsters win
-		battleState = BattleStates.PostBattle;
-		return true;
+GetBattleState = function() {
+	return __.battleState;
+}
+
+TryBeginBattle = function() {
+	if(GetBattleState() != BattleStates.NA) {
+		return;
 	}
-	
-	return false;
+
+	__.battleState = BattleStates.PreBattle;
 }
 
 /**
@@ -100,9 +104,11 @@ PreBattle = function() {
 	for(var i = 0; i < array_length(global.playerParty); i++) {
 		_character_data = global.playerParty[i];
 		_battle_participant = instance_create_layer(
-			_player_x + irandom_range(-18, 18), _y + i * 34, layer, ObjBattleParticipant);
-		_battle_participant.Initialize(_character_data);
-		array_push(__alphaTeam, _battle_participant);
+			_player_x + irandom_range(-18, 18),
+			_y + i * 34,
+			layer,
+			ObjBattleParticipant).Initialize(_character_data);
+		array_push(__.alphaTeam, _battle_participant);
 	}
 	
 	_y = _base_y - array_length(global.enemyParty) * 34 / 2;
@@ -116,29 +122,31 @@ PreBattle = function() {
 		}
 		
 		_battle_participant = instance_create_layer(
-			_real_monster_x, _y + i * 34, layer, ObjBattleParticipant);
-		_battle_participant.Initialize(_character_data);
+			_real_monster_x,
+			_y + i * 34,
+			layer,
+			ObjBattleParticipant).Initialize(_character_data);
 		_battle_participant.image_xscale = -1;
-		array_push(__betaTeam, _battle_participant);
+		array_push(__.betaTeam, _battle_participant);
 	}
 	
-	currentTurnOrder = array_concat(__alphaTeam, __betaTeam);
-	__CreateTurnOrder();
-	battleState = BattleStates.PreTurn;
+	__.currentTurnOrder = array_concat(__.alphaTeam, __.betaTeam);
+	__.CreateTurnOrder();
+	__.battleState = BattleStates.PreTurn;
 }
 
 PreTurn = function() {
-	if(__BattleHasVictor()) {
+	if(__.BattleHasVictor()) {
 		return;
 	}
 	
-	var _turn_instance = currentTurnOrder[__currentTurnIndex];
+	var _turn_instance = __.currentTurnOrder[__.currentTurnIndex];
 	
-	if(__SkipTurn(!_turn_instance.CanAct())) {
+	if(__.SkipTurn(!_turn_instance.CanAct())) {
 		return;
 	}
 	
-	var _turn_context = new TurnContext(_turn_instance, __alphaTeam, __betaTeam);
+	var _turn_context = new TurnContext(_turn_instance, __.alphaTeam, __.betaTeam);
 	
 	__.scheduler.TickDelayedActions(_turn_instance);
 	
@@ -149,44 +157,44 @@ PreTurn = function() {
 		if(array_length(_new_targets) == 0) {
 			_action.Fail();
 			__.scheduler.TrashCurrentAction();
-			battleState = BattleStates.PostTurn;
+			__.battleState = BattleStates.PostTurn;
 			return;
 		}
 		
 		_action.Initialize([_turn_instance], _new_targets);
 		
-		battleState = BattleStates.Turn;
+		__.battleState = BattleStates.Turn;
 		return;
 	}
 	
-	if(__SkipTurn(__.scheduler.HasDelayedActionFor(_turn_instance))) {
+	if(__.SkipTurn(__.scheduler.HasDelayedActionFor(_turn_instance))) {
 		return;
 	}
 	
 	var _turn_action_context = _turn_instance.GetAction(_turn_context);
 	
 	__.scheduler.AddAction(_turn_action_context.action);
-	battleState = BattleStates.Turn;
+	__.battleState = BattleStates.Turn;
 }
 
 Turn = function() {
 	__.scheduler.ProcessCurrentAction();
 	
 	if(!__.scheduler.HasReadyAction()) {
-		battleState = BattleStates.PostTurn;
+		__.battleState = BattleStates.PostTurn;
 	}
 }
 
 PostTurn = function() {
-	currentTurnOrder[__currentTurnIndex].DecayBuffs();
-	__currentTurnIndex++;
+	__.currentTurnOrder[__.currentTurnIndex].DecayBuffs();
+	__.currentTurnIndex++;
 	
-	if(__currentTurnIndex >= array_length(currentTurnOrder)) {
-		__CreateTurnOrder();
-		__currentTurnIndex = 0;
+	if(__.currentTurnIndex >= array_length(__.currentTurnOrder)) {
+		__.CreateTurnOrder();
+		__.currentTurnIndex = 0;
 	}
 	
-	battleState = BattleStates.PreTurn;
+	__.battleState = BattleStates.PreTurn;
 }
 
 PostBattle = function() {

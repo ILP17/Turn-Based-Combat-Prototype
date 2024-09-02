@@ -34,7 +34,7 @@ function BuffTargetStrategy() : TargetStrategy() constructor {
 		var _new_targets = _current_targets;
 		
 		if(!_valid) {
-			var _action_metadata = scr_get_action_metadata_from_instance(_action);
+			var _action_metadata = _action.GetMetadata();
 			_new_targets = GetTarget(_turn_context.ResolveTargets(_action_metadata), _action_metadata);
 		}
 		

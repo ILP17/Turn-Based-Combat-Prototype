@@ -1,5 +1,5 @@
 function BasicActionStrategy() : ActionStrategy() constructor {
-	EvaluateAction = function(_turnContext, _action_list, _weights = undefined) {
+	EvaluateAction = function(_turn_context, _action_list, _weights = undefined) {
 		_weights ??= __InitializeWeights(_action_list);
 		
 		for(var i = 0; i < array_length(_action_list); i++) {

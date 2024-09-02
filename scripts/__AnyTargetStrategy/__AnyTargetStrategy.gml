@@ -26,7 +26,7 @@ function AnyTargetStrategy() : TargetStrategy() constructor {
 		
 		if(!_valid) {
 			var _action_metadata = _action.GetMetadata();
-			_new_targets = GetTarget(_turn_context.ResolveTargets(_action_metadata))
+			_new_targets = GetTarget(_turn_context.ResolveTargets(_action_metadata), _action_metadata);
 		}
 		
 		return _new_targets;

@@ -12,14 +12,14 @@ function Action() constructor {
 		@return {struct.ActionMetadata}
 	*/
 	static GetMetadata = function() {
-		return scr_get_action_metadata_from_instance(self);
+		return ScrActionGetMetadataFromInstance(self);
 	}
 	
 	/**
 		@return {struct.TargetStrategy}
 	*/
 	static CreateTargetStrategy = function() {
-		var _action_metadata = scr_get_action_metadata_from_instance(self);
+		var _action_metadata = ScrActionGetMetadataFromInstance(self);
 		//Feather ignore once GM1045
 		return new _action_metadata.targetStrategy();
 	}

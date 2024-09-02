@@ -17,7 +17,7 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
 	}
 	
 	static __TryAddAdjacentTarget = function(_index, _valid_targets) {
-		if(scr_array_contains_index(_valid_targets, _index) && _valid_targets[_index].IsTargetable()) {
+		if(ScrArrayContainsIndex(_valid_targets, _index) && _valid_targets[_index].IsTargetable()) {
 			array_push(__targets, _valid_targets[_index]);
 		}
 	}
@@ -54,7 +54,7 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
 		var _targets = _turn_context.ResolveTargets(_action_metadata);
 		
 		if(!_valid) {
-			_new_targets = GetTarget(_targets);
+			_new_targets = GetTarget(_targets, _action_metadata);
 		} else {
 			var _target_index = array_get_index(_targets, _current_targets[1]);
 			if(array_length(_current_targets) >= 2 && !IsTargetValid(_current_targets[1])) {

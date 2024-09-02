@@ -20,7 +20,7 @@ function AllTargetStrategy() : TargetStrategy() constructor {
 		@param {struct.TurnContext} _turn_context
 	*/
 	DelayedActionTargetsCheck = function(_action, _turn_context) {
-		var _action_metadata = scr_get_action_metadata_from_instance(_action);
-		return GetTarget(_turn_context.ResolveTargets(_action_metadata));
+		var _action_metadata = _action.GetMetadata();
+		return GetTarget(_turn_context.ResolveTargets(_action_metadata), _action_metadata);
 	}
 }

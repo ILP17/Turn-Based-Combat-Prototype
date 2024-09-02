@@ -19,7 +19,7 @@ function HealActionStrategy() : ActionStrategy() constructor {
 		}
 		
 		for(var i = 0; i < array_length(_action_list); i++) {
-			var _metadata = scr_get_action_metadata(_action_list[i]);
+			var _metadata = ScrActionGetMetadata(_action_list[i]);
 			
 			if(_metadata.effectType != EffectType.Heal) {
 				continue;

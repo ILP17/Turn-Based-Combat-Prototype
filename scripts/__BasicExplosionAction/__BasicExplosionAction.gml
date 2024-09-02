@@ -10,7 +10,7 @@ function BasicExplosionAction() : Action() constructor {
 		
 		switch(__state) {
 			case 0:
-				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart - 64, 6)) {
+				if(ScrInstanceMoveTo(_attacker, _attacker.x, _attacker.ystart - 64, 6)) {
 					__state ++;
 				}
 				break;
@@ -27,7 +27,7 @@ function BasicExplosionAction() : Action() constructor {
 						_victim.y + irandom_range(-16, 16),
 						_victim.depth + 1, ObjBasicEffect);
 					_effect.Initialize(SprExplosion);
-					scr_instance_set_scale(_effect, 0.5, 0.5);
+					ScrInstanceSetScale(_effect, 0.5, 0.5);
 					__strikeTimer.Reset();
 					__strikeCount --;
 					if(__strikeCount == 0) {
@@ -50,7 +50,7 @@ function BasicExplosionAction() : Action() constructor {
 				__state ++;
 				break;
 			case 3:
-				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart, 4)) {
+				if(ScrInstanceMoveTo(_attacker, _attacker.x, _attacker.ystart, 4)) {
 					__state ++;
 				}
 				break;

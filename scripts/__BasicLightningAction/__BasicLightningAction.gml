@@ -9,7 +9,7 @@ function BasicLightningAction() : Action() constructor {
 		
 		switch(__state) {
 			case 0:
-				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart - 64, 6)) {
+				if(ScrInstanceMoveTo(_attacker, _attacker.x, _attacker.ystart - 64, 6)) {
 					__strikeCount = array_length(__targets);
 					__state ++;
 				}
@@ -42,7 +42,7 @@ function BasicLightningAction() : Action() constructor {
 				}
 				break;
 			case 2:
-				if(scr_instance_move_to(_attacker, _attacker.x, _attacker.ystart, 4)) {
+				if(ScrInstanceMoveTo(_attacker, _attacker.x, _attacker.ystart, 4)) {
 					__state ++;
 				}
 				break;

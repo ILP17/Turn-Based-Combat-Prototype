@@ -22,6 +22,8 @@ Initialize = function(_character_data) {
 	sprite_index = __sprite;
 	
 	__actionEvaluator = new CPUActionEvaluator(__characterData);
+	
+	return id;
 }
 
 GetStat = function(_stat_key) {

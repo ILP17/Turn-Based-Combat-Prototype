@@ -11,9 +11,9 @@ draw_text(
 	__characterData.name
 );
 
-var _middleX = (xstart - (abs(sprite_width) + 12) * image_xscale);
-var _x1 = (_middleX - 14) * _view_ratio;
-var _x2 = (_middleX + 14) * _view_ratio;
+var _middle_x = (xstart - (abs(sprite_width) + 12) * image_xscale);
+var _x1 = (_middle_x - 14) * _view_ratio;
+var _x2 = (_middle_x + 14) * _view_ratio;
 var _y1 = (ystart - sprite_height * 0.75 + 2) * _view_ratio;
 var _y2 = _y1 + 8 * _view_ratio;
 

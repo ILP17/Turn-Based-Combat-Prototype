@@ -21,7 +21,7 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 		var _direction = point_direction(_x1, _y1, _x2, _y2);
 		var _distance = point_distance(_x1, _y1, _x2, _y2);
 		
-		scr_instance_set_pos(_instance,
+		ScrInstanceSetPos(_instance,
 			_instance.xstart + lengthdir_x(_distance, _direction),
 			_instance.ystart + lengthdir_y(_distance, _direction))
 	}

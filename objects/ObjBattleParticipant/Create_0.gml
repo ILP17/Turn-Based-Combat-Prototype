@@ -5,47 +5,7 @@ __characterData = new Character();
 __health = 0;
 __healthDisplay = 0;
 __buffs = [];
-
-/**
-	@param {struct.TurnContext} _turn_context
-*/
-__AIDetermineAction = function(_turn_context) {
-	var _strategies = __characterData.strategies,
-		_actions = __characterData.actions,
-		_weights = undefined;
-	
-	//Get weights
-	for(var i = 0; i < array_length(_strategies); i++) {
-		_weights = (new _strategies[i]()).EvaluateAction(_turn_context, _actions, _weights);
-	}
-	
-	//Get total weight
-	var _total_weight = 0;
-	for(var i = 0; i < array_length(_weights); i++) {
-		_total_weight += _weights[i];
-	}
-	
-	//Get action
-	var _chosen_weight = random(_total_weight),
-		_min_weight = 0,
-		_max_weight = 0,
-		_action;
-	for(var i = 0; i < array_length(_weights); i++) {
-		if(_weights[i] == 0) {
-			continue;
-		}
-		
-		_max_weight = _weights[i] + _min_weight;
-		
-		if(_chosen_weight >= _min_weight && _chosen_weight <= _max_weight) {
-			_action = _actions[i];
-			break;
-		}
-		_min_weight = _max_weight;
-	}
-	
-	return _action;
-}
+__actionEvaluator = new CPUActionEvaluator(__characterData);
 
 /**
 	@param {struct.Character} _character_data
@@ -60,6 +20,8 @@ Initialize = function(_character_data) {
 	__sprite = __characterData.sprite;
 	__spriteDead = asset_get_index(_name + "Dead");
 	sprite_index = __sprite;
+	
+	__actionEvaluator = new CPUActionEvaluator(__characterData);
 }
 
 GetStat = function(_stat_key) {
@@ -77,14 +39,9 @@ GetStat = function(_stat_key) {
 	@return {struct.TurnActionContext}
 */
 GetAction = function(_turn_context) {
-	//Get action
-	var _action = __AIDetermineAction(_turn_context);
-	
-	//Get targets
+	var _action = __actionEvaluator.DetermineAction(_turn_context);
 	var _action_instance = new _action();
-	var _action_metadata = _action_instance.GetMetadata();
-	var _target_strategy = _action_instance.CreateTargetStrategy();
-	var _targets = _target_strategy.GetTarget(_turn_context.ResolveTargets(_action_metadata), _action_metadata);
+	var _targets = __actionEvaluator.DetermineTargets(_action_instance, _turn_context);
 	
 	if(array_length(_targets) == 0) {
 		throw ($"ERROR: {instanceof(_target_strategy)} produced no targets!");
@@ -93,6 +50,15 @@ GetAction = function(_turn_context) {
 	_action_instance.Initialize([id], _targets);
 	
 	return new TurnActionContext(_action_instance, _targets);
+}
+
+/**
+	@param {struct.Action} _action
+	@param {struct.TurnContext} _turn_context
+	@return {Array<Id.Instance>}
+*/
+UpdateTargets = function(_action, _turn_context) {
+	return __actionEvaluator.UpdateTargets(_action, _turn_context);
 }
 
 GetHealthRatio = function() {

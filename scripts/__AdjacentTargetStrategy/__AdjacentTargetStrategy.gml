@@ -22,20 +22,20 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
 		}
 	}
 	
-	GetTarget = function(_original_target_team) {
-		var _targets = array_filter(_original_target_team, __ValidTargetFilter);
-		var _targetsLength = array_length(_targets);
+	GetTarget = function(_target_team, _action_metadata) {
+		var _valid_targets = array_filter(_target_team, __ValidTargetFilter);
+		var _targets_length = array_length(_valid_targets);
 		
-		if(_targetsLength == 0) {
-			return _targets;
+		if(_targets_length == 0) {
+			return _valid_targets;
 		}
 		
-		var _chosen_index = __target_indecies[irandom(_targetsLength - 1)];
+		var _chosen_index = __target_indecies[irandom(_targets_length - 1)];
 		
-		array_push(__targets, _original_target_team[_chosen_index]);
+		array_push(__targets, _target_team[_chosen_index]);
 		
-		__TryAddAdjacentTarget(_chosen_index - 1, _targets);
-		__TryAddAdjacentTarget(_chosen_index + 1, _targets);
+		__TryAddAdjacentTarget(_chosen_index - 1, _target_team);
+		__TryAddAdjacentTarget(_chosen_index + 1, _target_team);
 		
 		return __targets;
 	} 

@@ -80,6 +80,7 @@
     {"id":{"name":"__BuffActionStrategy","path":"scripts/__BuffActionStrategy/__BuffActionStrategy.yy",},},
     {"id":{"name":"__BuffTargetStrategy","path":"scripts/__BuffTargetStrategy/__BuffTargetStrategy.yy",},},
     {"id":{"name":"__Character","path":"scripts/__Character/__Character.yy",},},
+    {"id":{"name":"__CPUActionEvaluator","path":"scripts/__CPUActionEvaluator/__CPUActionEvaluator.yy",},},
     {"id":{"name":"__HealActionStrategy","path":"scripts/__HealActionStrategy/__HealActionStrategy.yy",},},
     {"id":{"name":"__HealTargetStrategy","path":"scripts/__HealTargetStrategy/__HealTargetStrategy.yy",},},
     {"id":{"name":"__ReviveActionStrategy","path":"scripts/__ReviveActionStrategy/__ReviveActionStrategy.yy",},},

@@ -49,10 +49,11 @@ __CreateTurnOrder = function() {
 //@ignore
 __SkipTurn = function(_should_skip_turn) {
 	if(!_should_skip_turn) {
-		return;
+		return false;
 	}
 	
 	battleState = BattleStates.PostTurn;
+	return true;
 }
 
 //@ignore
@@ -143,8 +144,7 @@ PreTurn = function() {
 	
 	if(__.scheduler.HasReadyAction()) {
 		var _action = __.scheduler.GetCurrentAction();
-		var _target_strategy = _action.CreateTargetStrategy();
-		var _new_targets = _target_strategy.DelayedActionTargetsCheck(_action, _turn_context);
+		var _new_targets = _turn_instance.UpdateTargets(_action, _turn_context);
 		
 		if(array_length(_new_targets) == 0) {
 			_action.Fail();

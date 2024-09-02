@@ -3,7 +3,7 @@ function ReviveTargetStrategy() : TargetStrategy() constructor {
 		return !_potential_target.IsAlive();
 	}
 	
-	GetTarget = function(_target_team) {
+	GetTarget = function(_target_team, _action_metadata) {
 		var _valid_targets = array_filter(_target_team, __ValidTargetFilter),
 			_length = array_length(_valid_targets);
 		

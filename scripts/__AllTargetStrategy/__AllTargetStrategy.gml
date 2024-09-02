@@ -3,7 +3,7 @@ function AllTargetStrategy() : TargetStrategy() constructor {
 		return _potential_target.IsTargetable();
 	}
 	
-	GetTarget = function(_target_team) {
+	GetTarget = function(_target_team, _action_metadata) {
 		_target_team = array_filter(_target_team, __ValidTargetFilter);
 		
 		if(array_length(_target_team) == 0) {

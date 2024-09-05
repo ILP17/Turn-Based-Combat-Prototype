@@ -33,7 +33,7 @@ GetStat = function(_stat_key) {
 		_value *= __buffs[i].stats[$ _stat_key];
 	}
 	
-	return _value;
+	return floor(_value);
 }
 
 /**

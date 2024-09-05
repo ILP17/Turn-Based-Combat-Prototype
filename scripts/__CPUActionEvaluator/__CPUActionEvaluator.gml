@@ -9,8 +9,8 @@ function CPUActionEvaluator(_character_data) constructor {
 		@return {Function}
 	*/
 	DetermineAction = function(_turn_context) {
-		var _strategies = __characterData.strategies,
-			_actions = __characterData.actions,
+		var _strategies = __characterData.GetStrategies(),
+			_actions = __characterData.GetActions(),
 			_weights = undefined;
 	
 		//Get weights
@@ -63,7 +63,7 @@ function CPUActionEvaluator(_character_data) constructor {
 	/**
 		@param {struct.Action} _action
 		@param {struct.TurnContext} _turn_context
-		@param {Array<Id.Instance>}
+		@return {Array<Id.Instance>}
 	*/
 	UpdateTargets = function(_action, _turn_context) {
 		var _target_strategy = _action.CreateTargetStrategy();

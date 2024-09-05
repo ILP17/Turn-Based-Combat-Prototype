@@ -1,12 +1,3 @@
-enum BattleStates {
-	NA,			// Pause
-	PreBattle,	// Intro Animation
-	PreTurn,	// Get Action and Target
-	Turn,		// Turn cycle
-	PostTurn,	// Advance Turn
-	PostBattle	// Exp Award Animation
-}
-
 var _self = self;
 __ = {};
 with (__) {

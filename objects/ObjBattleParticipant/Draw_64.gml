@@ -1,5 +1,5 @@
 var _view_ratio = 2;	//this need to be actually calculated
-var _display_health_ratio = __healthDisplay / __characterData.stats.hp;
+var _display_health_ratio = __healthDisplay / __characterData.GetStat(HP_STAT);
 
 draw_set_halign(sign(image_xscale) == 1 ? fa_right : fa_left);
 draw_set_valign(fa_bottom);

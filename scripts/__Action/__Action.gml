@@ -33,11 +33,11 @@ function Action() constructor {
 	}
 	
 	static GetDamage = function(_attacker, _scalar, _victim, _attack_stat_key, _defense_stat_key) {
-		var _damage = floor(_attacker.GetStat(_attack_stat_key) * -_scalar * random_range(0.8, 1));
+		var _attack_stat = _attacker.GetStat(_attack_stat_key);
+		var _defense_stat = _victim.GetStat(_defense_stat_key);
+		var _damage = floor(_attack_stat * -_scalar * random_range(0.8, 1));
 		
-		if(_scalar < 0) {
-			_damage = max(_damage - _victim.GetStat(_defense_stat_key), 1);
-		}
+		_damage = max(abs(_damage) - _defense_stat, 1) * sign(-_scalar);
 		
 		return _damage;
 	}
@@ -45,9 +45,7 @@ function Action() constructor {
 	static GetDamageNoDefense = function(_attacker, _scalar, _victim, _attack_stat_key) {
 		var _damage = floor(_attacker.GetStat(_attack_stat_key) * -_scalar * random_range(0.8, 1));
 		
-		if(_scalar < 0) {
-			_damage = max(_damage, 1);
-		}
+		_damage = max(abs(_damage), 1) * sign(-_scalar);
 		
 		return _damage;
 	}

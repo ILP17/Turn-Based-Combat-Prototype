@@ -1,11 +1,11 @@
 __sprite = SprPlayer;
 __spriteDead = SprPlayerDead;
 __healthColor = c_aqua;
-__characterData = new Character();
+__characterData = undefined;
 __health = 0;
 __healthDisplay = 0;
 __buffs = [];
-__actionEvaluator = new CPUActionEvaluator(__characterData);
+__actionEvaluator = undefined;
 
 /**
 	@param {struct.Character} _character_data
@@ -13,7 +13,7 @@ __actionEvaluator = new CPUActionEvaluator(__characterData);
 Initialize = function(_character_data) {
 	__characterData = _character_data;
 	
-	__health = __characterData.stats.hp;
+	__health = __characterData.GetStat(HP_STAT);
 	__healthDisplay = __health;
 	
 	var _name = sprite_get_name(__characterData.sprite);
@@ -27,7 +27,7 @@ Initialize = function(_character_data) {
 }
 
 GetStat = function(_stat_key) {
-	var _value = __characterData.stats[$ _stat_key];
+	var _value = __characterData.GetStat(_stat_key);
 	
 	for(var i = 0; i < array_length(__buffs); i++) {
 		_value *= __buffs[i].stats[$ _stat_key];
@@ -46,7 +46,7 @@ GetAction = function(_turn_context) {
 	var _targets = __actionEvaluator.DetermineTargets(_action_instance, _turn_context);
 	
 	if(array_length(_targets) == 0) {
-		throw ($"ERROR: {instanceof(_target_strategy)} produced no targets!");
+		throw ($"ERROR: Target strategy for {instanceof(_action_instance)} produced no targets!");
 	}
 	
 	_action_instance.Initialize([id], _targets);
@@ -64,7 +64,7 @@ UpdateTargets = function(_action, _turn_context) {
 }
 
 GetHealthRatio = function() {
-	return __health / __characterData.stats.hp;
+	return __health / __characterData.GetStat(HP_STAT);
 }
 
 IsAlive = function() {
@@ -147,7 +147,7 @@ Damage = function(_damage) {
 		_style = 3;
 	}
 	
-	__health = clamp(__health + _damage, 0, __characterData.stats.hp);
+	__health = clamp(__health + _damage, 0, __characterData.GetStat(HP_STAT));
 	
 	instance_create_depth(
 		x + irandom_range(-12, 12),

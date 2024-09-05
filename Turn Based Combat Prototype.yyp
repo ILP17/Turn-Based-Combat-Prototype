@@ -41,7 +41,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.6.2.162",
+    "IDEVersion":"2024.8.0.169",
   },
   "name":"Turn Based Combat Prototype",
   "resources":[
@@ -80,6 +80,7 @@
     {"id":{"name":"__BuffActionStrategy","path":"scripts/__BuffActionStrategy/__BuffActionStrategy.yy",},},
     {"id":{"name":"__BuffTargetStrategy","path":"scripts/__BuffTargetStrategy/__BuffTargetStrategy.yy",},},
     {"id":{"name":"__Character","path":"scripts/__Character/__Character.yy",},},
+    {"id":{"name":"__Class","path":"scripts/__Class/__Class.yy",},},
     {"id":{"name":"__CPUActionEvaluator","path":"scripts/__CPUActionEvaluator/__CPUActionEvaluator.yy",},},
     {"id":{"name":"__HealActionStrategy","path":"scripts/__HealActionStrategy/__HealActionStrategy.yy",},},
     {"id":{"name":"__HealTargetStrategy","path":"scripts/__HealTargetStrategy/__HealTargetStrategy.yy",},},
@@ -95,6 +96,7 @@
     {"id":{"name":"Buffs","path":"scripts/Buffs/Buffs.yy",},},
     {"id":{"name":"Instance_Scripts","path":"scripts/Instance_Scripts/Instance_Scripts.yy",},},
     {"id":{"name":"Particle_Scripts","path":"scripts/Particle_Scripts/Particle_Scripts.yy",},},
+    {"id":{"name":"ScrEnforceImplementation","path":"scripts/ScrEnforceImplementation/ScrEnforceImplementation.yy",},},
     {"id":{"name":"TurnBattleSystemInit","path":"scripts/TurnBattleSystemInit/TurnBattleSystemInit.yy",},},
     {"id":{"name":"SprAbhorrence","path":"sprites/SprAbhorrence/SprAbhorrence.yy",},},
     {"id":{"name":"SprAbhorrenceDead","path":"sprites/SprAbhorrenceDead/SprAbhorrenceDead.yy",},},

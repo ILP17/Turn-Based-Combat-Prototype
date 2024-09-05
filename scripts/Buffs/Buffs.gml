@@ -14,7 +14,6 @@ function Buff(_turn_count, _icon_index = 0) constructor {
 	Kill
 	
 	@param {real} _turn_count
-	@param {real} _icon_index
 */
 function ValorBuff(_turn_count) : Buff(_turn_count, 1) constructor {
 	stats = new StatsMultiplierModifier({ at: 1.5, mag: 1.25 });

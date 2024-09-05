@@ -9,7 +9,7 @@ global.monsters = {
 		name: "Sassy Witch",
 		sprite: SprSassyWitch,
 		stats: new Stats({ hp: 70, at: 35, df: 3, sp: 5 }),
-		actions: [BasicHitAction, BasicBuffAction, BasicDebuffAction],
+		actions: [BasicHitAction, BasicStrengthBuffAction, BasicSpeedDebuffAction],
 		strategies: [BasicActionStrategy, BuffActionStrategy] })
 };
 
@@ -23,7 +23,8 @@ global.classes = {
 	Mage: new Class({
 		baseStats: new Stats({ hp: 10, at: 3, df: 1, sp: 3, mag: 1}),
 		maxStats: new Stats({ hp: 250, at: 120, df: 75, sp: 85, mag: 140 }),
-		actions: [BasicHitAction, BasicLightningAction, BasicExplosionAction]}),
+		actions: [BasicHitAction, BasicLightningAction, BasicExplosionAction, BasicDefenseBuffAction],
+		strategies: [BasicActionStrategy, BuffActionStrategy]}),
 	Angel: new Class({
 		baseStats: new Stats({ hp: 10, at: 3, df: 1, sp: 4, mag: 1 }),
 		maxStats: new Stats({ hp: 195, at: 100, df: 80, sp: 90, mag: 168 }),

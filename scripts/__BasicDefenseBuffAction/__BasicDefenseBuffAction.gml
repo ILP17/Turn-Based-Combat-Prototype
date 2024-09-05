@@ -1,8 +1,8 @@
-function BasicHealAction() : Action() constructor {
+function BasicDefenseBuffAction() : Action() constructor {
 	__state = 0;
 	__waitTimer = new SimpleTimer(35);
 	__z = 0;
-	__zSpeed = -10;
+	__zSpeed = -12;
 	__zGravity = 1;
 	__part_system = undefined;
 	
@@ -21,12 +21,12 @@ function BasicHealAction() : Action() constructor {
 				}
 				break;
 			case 1:
-				__part_system = part_system_create_layer("Instances", false, PartSysHeal);
-				part_system_position(__part_system, _victim.x, _victim.y);
+				__part_system = part_system_create_layer("Instances", false, PartSysProtectionBuff);
+				part_system_position(__part_system, _victim.x, _victim.y - 16);
 				__state++;
 				break;
 			case 2:
-				_victim.Damage(GetDamageNoDefense(_attacker, -0.25, _victim, MAG_STAT, 7));
+				_victim.ApplyBuff(new ProtectionBuff(3));
 				__state++;
 				break;
 			case 3:

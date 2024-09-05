@@ -24,9 +24,9 @@ function BasicLightningAction() : Action() constructor {
 					__strikeTimer.Reset();
 					
 					if(__target_index == 0) {
-						_victim.Damage(GetDamage(_attacker, 0.8, _victim, MAG_STAT, DF_STAT));
+						_victim.Damage(GetDamage(_attacker, 0.8, _victim, MAG_STAT, DF_STAT, 4));
 					} else {
-						_victim.Damage(GetDamage(_attacker, 0.5, _victim, MAG_STAT, DF_STAT));
+						_victim.Damage(GetDamage(_attacker, 0.5, _victim, MAG_STAT, DF_STAT, 4));
 					}
 					
 					__strikeCount --;

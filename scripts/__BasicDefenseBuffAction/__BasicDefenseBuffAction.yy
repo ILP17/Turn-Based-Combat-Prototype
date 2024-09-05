@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"__BasicDebuffAction",
+  "%Name":"__BasicDefenseBuffAction",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__BasicDebuffAction",
+  "name":"__BasicDefenseBuffAction",
   "parent":{
     "name":"Actions",
     "path":"folders/Scripts/Battle Core/Actions.yy",

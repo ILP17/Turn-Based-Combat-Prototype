@@ -43,12 +43,17 @@ global.actionMetadata[$ nameof(BasicLightningAction)] = new ActionMetadata({
 	targetStrategy: AdjacentTargetStrategy});
 global.actionMetadata[$ nameof(BasicExplosionAction)] = new ActionMetadata({
 	targetStrategy: AllTargetStrategy});
-global.actionMetadata[$ nameof(BasicBuffAction)] = new ActionMetadata({
+global.actionMetadata[$ nameof(BasicStrengthBuffAction)] = new ActionMetadata({
 	targetType: TargetType.Team,
 	effectType: EffectType.Buff,
 	targetStrategy: BuffTargetStrategy,
 	buffs: [ValorBuff]});
-global.actionMetadata[$ nameof(BasicDebuffAction)] = new ActionMetadata({
+global.actionMetadata[$ nameof(BasicDefenseBuffAction)] = new ActionMetadata({
+	targetType: TargetType.Team,
+	effectType: EffectType.Buff,
+	targetStrategy: BuffTargetStrategy,
+	buffs: [ProtectionBuff]});
+global.actionMetadata[$ nameof(BasicSpeedDebuffAction)] = new ActionMetadata({
 	effectType: EffectType.Buff,
 	targetStrategy: BuffTargetStrategy,
 	buffs: [StaggerBuff]});

@@ -1,4 +1,4 @@
-function BasicDebuffAction() : Action() constructor {
+function BasicSpeedDebuffAction() : Action() constructor {
 	__state = 0;
 	__waitTimer = new SimpleTimer(35);
 	__z = 0;

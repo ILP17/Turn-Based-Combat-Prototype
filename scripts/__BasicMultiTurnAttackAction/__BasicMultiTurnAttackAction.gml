@@ -66,7 +66,7 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 			case 3:
 				__DoRotation(_attacker);
 				_attacker.RemoveEffect(ObjAngelBeamCharge);
-				_victim.Damage(GetDamage(_attacker, 1.25, _victim, MAG_STAT, DF_STAT));
+				_victim.Damage(GetDamage(_attacker, 1, _victim, MAG_STAT, DF_STAT));
 				__state++;
 				break;
 			case 4:

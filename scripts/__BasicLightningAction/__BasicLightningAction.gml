@@ -16,8 +16,6 @@ function BasicLightningAction() : Action() constructor {
 				break;
 			case 1:
 				if(__strikeTimer.IsFinished()) {
-					__strikeCount --;
-					
 					var _victim = __targets[__target_index];
 					var _effect = instance_create_depth(_victim.x, _victim.y, _victim.depth + 1, ObjBasicEffect);
 					_effect.Initialize(SprLightning, 24);
@@ -26,12 +24,13 @@ function BasicLightningAction() : Action() constructor {
 					__strikeTimer.Reset();
 					
 					if(__target_index == 0) {
-						_victim.Damage(GetDamage(_attacker, 0.65, _victim, MAG_STAT, DF_STAT));
+						_victim.Damage(GetDamage(_attacker, 0.8, _victim, MAG_STAT, DF_STAT));
 					} else {
-						_victim.Damage(GetDamage(_attacker, 0.25, _victim, MAG_STAT, DF_STAT));
+						_victim.Damage(GetDamage(_attacker, 0.5, _victim, MAG_STAT, DF_STAT));
 					}
 					
-					__target_index++;
+					__strikeCount --;
+					__target_index ++;
 					
 					if(__strikeCount == 0) {
 						__state++;

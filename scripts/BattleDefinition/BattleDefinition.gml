@@ -1,15 +1,15 @@
 global.monsters = {
 	Weirdo: new MonsterCharacter(
-		{ name: "Weirdo", sprite: SprMonster, stats: new Stats({ hp: 25, at: 10, df: 2, sp: 3 }) }),
+		{ name: "Weirdo", sprite: SprMonster, stats: new Stats({ hp: 40, at: 30, df: 2, sp: 3 }) }),
 	Killer: new MonsterCharacter(
-		{ name: "Killer", sprite: SprAngryMonster, stats: new Stats({ hp: 15, at: 25, df: 3, sp: 2 }) }),
+		{ name: "Killer", sprite: SprAngryMonster, stats: new Stats({ hp: 25, at: 45, df: 3, sp: 2 }) }),
 	Abhorrence: new MonsterCharacter(
-		{ name: "Abhorrence", sprite: SprAbhorrence, isBoss: true, stats: new Stats({ hp: 130, at: 38, df: 8, sp: 1 }) }),
+		{ name: "Abhorrence", sprite: SprAbhorrence, isBoss: true, stats: new Stats({ hp: 175, at: 60, df: 5, sp: 1 }) }),
 	SassyWitch: new MonsterCharacter({
 		name: "Sassy Witch",
 		sprite: SprSassyWitch,
-		stats: new Stats({ hp: 40, at: 15, df: 5, sp: 5 }),
-		actions: [ BasicHitAction, BasicBuffAction, BasicDebuffAction],
+		stats: new Stats({ hp: 70, at: 35, df: 3, sp: 5 }),
+		actions: [BasicHitAction, BasicBuffAction, BasicDebuffAction],
 		strategies: [BasicActionStrategy, BuffActionStrategy] })
 };
 
@@ -34,19 +34,22 @@ global.classes = {
 global.playerParty = [
 	new PlayerCharacter({
 		name: "Loser",
-		class: global.classes.Rouge}),
+		class: global.classes.Rouge,
+		level: 8 }),
 	new PlayerCharacter({
 		name: "Kartoffel",
 		sprite: SprMage,
 		class: global.classes.Mage,
-		level: 50}),
+		level: 7 }),
 	new PlayerCharacter({
 		name: "#1 Harpy Fan",
-		class: global.classes.Warrior}),
+		class: global.classes.Warrior,
+		level: 10 }),
 	new PlayerCharacter({
 		name: "Angel",
 		sprite: SprHealer,
-		class: global.classes.Angel})
+		class: global.classes.Angel,
+		level: 8 })
 ];
 
 global.enemyParty = [

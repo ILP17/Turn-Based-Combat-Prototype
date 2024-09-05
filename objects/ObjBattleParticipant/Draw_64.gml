@@ -26,7 +26,7 @@ if(__healthDisplay > 0) {
 	draw_rectangle_color(
 		_x1,
 		_y1 + 2 * _view_ratio,
-		_x1 + abs(_x2 - _x1) * _display_health_ratio,
+		_x1 + floor(abs(_x2 - _x1) * _display_health_ratio),
 		_y2 - 2 * _view_ratio,
 		__healthColor,
 		__healthColor,

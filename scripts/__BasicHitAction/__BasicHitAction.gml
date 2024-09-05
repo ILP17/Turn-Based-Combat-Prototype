@@ -13,7 +13,7 @@ function BasicHitAction() : Action() constructor {
 				}
 				break;
 			case 1:
-				_victim.Damage(GetDamage(_attacker, 0.25, _victim, AT_STAT, DF_STAT));
+				_victim.Damage(GetDamage(_attacker, 0.5, _victim, AT_STAT, DF_STAT));
 				__state++;
 				break;
 			case 2:

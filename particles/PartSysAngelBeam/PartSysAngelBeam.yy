@@ -14,7 +14,7 @@
   "name":"PartSysAngelBeam",
   "parent":{
     "name":"Particle Systems",
-    "path":"folders/Particle Systems.yy",
+    "path":"folders/__Pillow_Combat/Particle Systems.yy",
   },
   "resourceType":"GMParticleSystem",
   "resourceVersion":"2.0",

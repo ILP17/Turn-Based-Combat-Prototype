@@ -6,7 +6,7 @@
   "name":"__SimpleTimer",
   "parent":{
     "name":"Utility",
-    "path":"folders/Scripts/Utility.yy",
+    "path":"folders/__Pillow_Combat/Scripts/Utility.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

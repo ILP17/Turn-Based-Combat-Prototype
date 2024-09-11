@@ -6,7 +6,7 @@
   "name":"__HealTargetStrategy",
   "parent":{
     "name":"Target Strategies",
-    "path":"folders/Scripts/Battle Core/Target Strategies.yy",
+    "path":"folders/__Pillow_Combat/Scripts/Battle Core/Target Strategies.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

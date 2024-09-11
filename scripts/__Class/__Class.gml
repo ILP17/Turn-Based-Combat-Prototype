@@ -7,14 +7,25 @@ function Class(_config = {}) constructor {
 		strategies = _config[$ "strategies"] ?? [BasicActionStrategy];
 	}
 	
+	/**
+		@return {Array<Function>}
+	*/
 	GetActions = function() {
 		return __.actions;
 	}
 	
+	/**
+		@return {Array<Function>}
+	*/
 	GetStrategies = function() {
 		return __.strategies;
 	}
 	
+	/**
+		@param {string} _stat_key
+		@param {real} _level
+		@return {real}
+	*/
 	GetStat = function(_stat_key, _level = 1) {
 		_level = clamp(_level, 1, MAX_LEVEL);
 		var _t = (_level - 1) / (MAX_LEVEL - 1);

@@ -29,6 +29,12 @@ enum TargetType {
 
 global.actionMetadata = {};
 
+// Fill this with character data
+global.playerParty = [];
+
+// Fill this with character data
+global.enemyParty = [];
+
 #region Action Metadata
 global.actionMetadata[$ nameof(BasicHitAction)] = new ActionMetadata();
 global.actionMetadata[$ nameof(BasicHealAction)] = new ActionMetadata({

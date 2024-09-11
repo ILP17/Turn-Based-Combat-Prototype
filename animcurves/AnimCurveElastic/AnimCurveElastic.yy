@@ -27,7 +27,7 @@
   "name":"AnimCurveElastic",
   "parent":{
     "name":"Animation Curves",
-    "path":"folders/Animation Curves.yy",
+    "path":"folders/__Pillow_Combat/Animation Curves.yy",
   },
   "resourceType":"GMAnimCurve",
   "resourceVersion":"2.0",

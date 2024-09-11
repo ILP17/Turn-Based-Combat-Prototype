@@ -6,7 +6,7 @@
   "name":"__ActionStrategy",
   "parent":{
     "name":"Action Strategies",
-    "path":"folders/Scripts/Battle Core/Action Strategies.yy",
+    "path":"folders/__Pillow_Combat/Scripts/Battle Core/Action Strategies.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

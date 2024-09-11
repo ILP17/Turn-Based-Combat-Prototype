@@ -41,8 +41,7 @@ GetStat = function(_stat_key) {
 	@return {struct.TurnActionContext}
 */
 GetAction = function(_turn_context) {
-	var _action = __actionEvaluator.DetermineAction(_turn_context);
-	var _action_instance = new _action();
+	var _action_instance = __actionEvaluator.DetermineAction(_turn_context);
 	var _targets = __actionEvaluator.DetermineTargets(_action_instance, _turn_context);
 	
 	if(array_length(_targets) == 0) {
@@ -81,19 +80,20 @@ CanAct = function() {
 
 /**
 	@param {struct.Buff}
+	@return {bool}
 */
-__buff_constructor = undefined;
 HasBuff = function(_buff_constructor) {
-	static __InstanceIsBuff = function(_buff, _index) {
-		return instanceof(_buff) == script_get_name(__buff_constructor);
-	}
-	__buff_constructor = _buff_constructor;
-	return array_any(__buffs, __InstanceIsBuff);
+	var _method = method({_buff_constructor}, function(_buff, _index) {
+		return instanceof(_buff) == script_get_name(_buff_constructor);
+	});
+	
+	return array_any(__buffs, _method);
 }
 
 /**
 	Returns true if battle participant has any of the provided buffs
 	@param {Array<struct.Buff>} _buffs
+	@return {bool}
 */
 HasAnyBuff = function(_buffs) {
 	for(var i = 0; i < array_length(_buffs); i++) {

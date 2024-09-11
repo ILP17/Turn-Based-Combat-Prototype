@@ -4,18 +4,19 @@ function HealTargetStrategy() : TargetStrategy() constructor {
 	}
 	
 	GetTarget = function(_target_team, _action_metadata) {
-		_target_team = array_filter(_target_team, __ValidTargetFilter);
+		var _valid_targets = array_filter(_target_team, __ValidTargetFilter);
+		var _valid_targets_length = array_length(_valid_targets);
 		
-		if(array_length(_target_team) == 0) {
-			return _target_team;
+		if(_valid_targets_length == 0) {
+			return _valid_targets;
 		}
 		
-		var _chosen_target = _target_team[0],
+		var _chosen_target = _valid_targets[0],
 			_last_hp_ratio = _chosen_target.GetHealthRatio(),
 			_potential_target;
 		
-		for(var i = 1; i < array_length(_target_team); i++) {
-			_potential_target = _target_team[i];
+		for(var i = 1; i < _valid_targets_length; i++) {
+			_potential_target = _valid_targets[i];
 			if(_potential_target.GetHealthRatio() < _last_hp_ratio) {
 				_chosen_target = _potential_target;
 				_last_hp_ratio = _chosen_target.GetHealthRatio();

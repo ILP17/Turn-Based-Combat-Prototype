@@ -4,13 +4,14 @@ function AllTargetStrategy() : TargetStrategy() constructor {
 	}
 	
 	GetTarget = function(_target_team, _action_metadata) {
-		_target_team = array_filter(_target_team, __ValidTargetFilter);
+		var _valid_targets = array_filter(_target_team, __ValidTargetFilter);
+		var _valid_targets_length = array_length(_valid_targets);
 		
-		if(array_length(_target_team) == 0) {
-			return _target_team;
+		if(_valid_targets_length == 0) {
+			return _valid_targets;
 		}
 		
-		return _target_team;
+		return _valid_targets;
 	}
 	
 	/**

@@ -11,17 +11,33 @@ function Character() constructor {
 	}
 	
 	/**
-		@return {Array<struct.Action>}
+		@return {real}
 	*/
-	GetActions = function() {
-		ScrEnforceImplementation(instanceof(self), nameof(GetActions));
+	GetActionCount = function() {
+		ScrEnforceImplementation(instanceof(self), nameof(GetActionCount));
 	}
 	
 	/**
-		@return {Array<struct.ActionStrategy>}
+		@param {real} _index
+		@return {struct.Action}
 	*/
-	GetStrategies = function() {
-		ScrEnforceImplementation(instanceof(self), nameof(GetStrategies));
+	GetAction = function(_index) {
+		ScrEnforceImplementation(instanceof(self), nameof(GetAction));
+	}
+	
+	/**
+		@return {real}
+	*/
+	GetStrategyCount = function() {
+		ScrEnforceImplementation(instanceof(self), nameof(GetStrategyCount));
+	}
+	
+	/**
+		@param {real} _index
+		@return {struct.ActionStrategy}
+	*/
+	GetStrategy = function(_index) {
+		ScrEnforceImplementation(instanceof(self), nameof(GetStrategy));
 	}
 }
 
@@ -46,19 +62,37 @@ function PlayerCharacter(_config = {}) : Character() constructor {
 	}
 	
 	/**
-		@return {Array<struct.Action>}
+		@return {real}
 	*/
-	GetActions = function() {
-		//Feather ignore once GM1045
-		return array_union(__.actions, __.class.GetActions());
+	GetActionCount = function() {
+		return array_length(__.actions) + array_length(__.class.GetActions());
 	}
 	
 	/**
+		@param {real} _index
+		@return {Array<Function>}
+	*/
+	GetAction = function(_index) {
+		var _array = array_union(__.actions, __.class.GetActions());
+		//Feather ignore once GM1045
+		return new _array[_index]();
+	}
+	
+	/**
+		@return {real}
+	*/
+	GetStrategyCount = function() {
+		return array_length(__.strategies) + array_length(__.class.GetStrategies());
+	}
+	
+	/**
+		@param {real} _index
 		@return {Array<struct.ActionStrategy>}
 	*/
-	GetStrategies = function() {
+	GetStrategy = function(_index) {
+		var _array = array_union(__.strategies, __.class.GetStrategies());
 		//Feather ignore once GM1045
-		return array_union(__.strategies, __.class.GetStrategies());
+		return new _array[_index]();
 	}
 	
 	name = _config[$ "name"] ?? "";
@@ -86,19 +120,35 @@ function MonsterCharacter(_config = {}) : Character() constructor {
 	}
 	
 	/**
-		@return {Array<struct.Action>}
+		@return {real}
 	*/
-	GetActions = function() {
-		//Feather ignore once GM1045
-		return __.actions;
+	GetActionCount = function() {
+		return array_length(__.actions);
 	}
 	
 	/**
+		@param {real} _index
+		@return {Array<Function>}
+	*/
+	GetAction = function(_index) {
+		//Feather ignore once GM1045
+		return new __.actions[_index]();
+	}
+	
+	/**
+		@return {real}
+	*/
+	GetStrategyCount = function() {
+		return array_length(__.strategies);
+	}
+	
+	/**
+		@param {real} _index
 		@return {Array<struct.ActionStrategy>}
 	*/
-	GetStrategies = function() {
+	GetStrategy = function(_index) {
 		//Feather ignore once GM1045
-		return __.strategies;
+		return new __.strategies[_index]();
 	}
 	
 	name = _config[$ "name"] ?? "";

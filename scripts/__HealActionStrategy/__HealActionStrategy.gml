@@ -1,28 +1,42 @@
 function HealActionStrategy() : ActionStrategy() constructor {
-	EvaluateAction = function(_turn_context, _action_list, _weights = undefined) {
-		_weights ??= __InitializeWeights(_action_list);
+	/**
+		@param {struct.Character} _character_data
+		@param {struct.TurnContext} _turn_context
+		@param {Array<real>|undefined} _weights
+		@return {Array<real>}
+	*/
+	EvaluateAction = function(_character_data, _turn_context, _weights = undefined) {
+		var _action_count = _character_data.GetActionCount();
+		_weights ??= __InitializeWeights(_action_count);
 		var _should_heal = 0;
-		var _target = _turn_context.myTeam;
-		for(var i = 0; i < array_length(_target); i++) {
-			if(!_target[i].IsAlive()) {
-				continue;
-			}
-			
-			if(_target[i].GetHealthRatio() < 1 && _should_heal == 0) {
-				_should_heal = 1;
-			}
-
-			if(_target[i].GetHealthRatio() < 0.5) {
-				_should_heal = 2;
-				break;
-			}
-		}
 		
-		for(var i = 0; i < array_length(_action_list); i++) {
-			var _metadata = ScrActionGetMetadata(_action_list[i]);
+		//for each action
+		for(var i = 0; i < _action_count; i++) {
+			var _metadata = _character_data.GetAction(i).GetMetadata();
 			
 			if(_metadata.effectType != EffectType.Heal) {
 				continue;
+			}
+			
+			_should_heal = 0;
+			var _targets = _turn_context.ResolveTargets(_metadata);
+			
+			//for each target
+			for(var j = 0; j < array_length(_targets); j++) {
+				var _target = _targets[j];
+				
+				if(!_target.IsAlive()) {
+					continue;
+				}
+			
+				if(_target.GetHealthRatio() < 1 && _should_heal == 0) {
+					_should_heal = 1;
+				}
+
+				if(_target.GetHealthRatio() < 0.5) {
+					_should_heal = 2;
+					break;
+				}
 			}
 			
 			switch(_should_heal){

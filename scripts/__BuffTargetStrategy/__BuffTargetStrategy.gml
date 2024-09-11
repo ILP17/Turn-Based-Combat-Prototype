@@ -12,14 +12,14 @@ function BuffTargetStrategy() : TargetStrategy() constructor {
 	*/
 	GetTarget = function(_target_team, _action_metadata) {
 		__actionMetadata = _action_metadata;
-		var _targets = array_filter(_target_team, __ValidTargetFilter),
-			_length = array_length(_targets);
+		var _valid_targets = array_filter(_target_team, __ValidTargetFilter);
+		var _valid_targets_length = array_length(_valid_targets);
 		
-		if(_length == 0) {
-			return _target_team;
+		if(_valid_targets_length == 0) {
+			return _valid_targets;
 		}
 		
-		return [_targets[irandom(_length - 1)]];
+		return [_valid_targets[irandom(_valid_targets_length - 1)]];
 	}
 	
 	/**

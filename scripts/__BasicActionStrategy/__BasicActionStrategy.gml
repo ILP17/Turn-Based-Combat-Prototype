@@ -1,8 +1,15 @@
 function BasicActionStrategy() : ActionStrategy() constructor {
-	EvaluateAction = function(_turn_context, _action_list, _weights = undefined) {
-		_weights ??= __InitializeWeights(_action_list);
+	/**
+		@param {struct.Character} _character_data
+		@param {struct.TurnContext} _turn_context
+		@param {Array<real>|undefined} _weights
+		@return {Array<real>}
+	*/
+	EvaluateAction = function(_character_data, _turn_context, _weights = undefined) {
+		var _action_count = _character_data.GetActionCount();
+		_weights ??= __InitializeWeights(_action_count);
 		
-		for(var i = 0; i < array_length(_action_list); i++) {
+		for(var i = 0; i < _action_count; i++) {
 			_weights[i] = __AdjustWeight(_weights[i], 10);
 		}
 		

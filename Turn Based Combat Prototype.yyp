@@ -13,8 +13,8 @@
     {"$GMFolder":"","%Name":"__Pillow_Combat","folderPath":"folders/__Pillow_Combat.yy","name":"__Pillow_Combat","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Animation Curves","folderPath":"folders/__Pillow_Combat/Animation Curves.yy","name":"Animation Curves","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Fonts","folderPath":"folders/__Pillow_Combat/Fonts.yy","name":"Fonts","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Particle Systems","folderPath":"folders/__Pillow_Combat/Particle Systems.yy","name":"Particle Systems","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/__Pillow_Combat/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Particle Systems","folderPath":"folders/__Pillow_Combat/Particle Systems.yy","name":"Particle Systems","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/__Pillow_Combat/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Battle Core","folderPath":"folders/__Pillow_Combat/Scripts/Battle Core.yy","name":"Battle Core","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Action Strategies","folderPath":"folders/__Pillow_Combat/Scripts/Battle Core/Action Strategies.yy","name":"Action Strategies","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -48,7 +48,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.8.0.169",
+    "IDEVersion":"2024.8.1.171",
   },
   "name":"Turn Based Combat Prototype",
   "resources":[

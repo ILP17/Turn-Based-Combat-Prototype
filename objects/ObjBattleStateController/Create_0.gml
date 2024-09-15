@@ -41,11 +41,11 @@ with (__) {
 
 	BattleHasVictor = method(_self, function() {
 		if(!__.CheckTeamAlive(__.alphaTeam)) {
-			//player wins
+			OnBattleDecided(BattleVictors.Beta);
 			__.battleState = BattleStates.PostBattle;
 			return true;
 		} else if(!__.CheckTeamAlive(__.betaTeam)) {
-			//monsters win
+			OnBattleDecided(BattleVictors.Alpha);
 			__.battleState = BattleStates.PostBattle;
 			return true;
 		}
@@ -53,6 +53,8 @@ with (__) {
 		return false;
 	});
 }
+
+OnBattleDecided = function(_victor_team) {}
 
 GetBattleState = function() {
 	return __.battleState;

@@ -14,6 +14,11 @@ enum BattleStates {
 	PostBattle	// Exp Award Animation
 }
 
+enum BattleVictors {
+	Alpha,
+	Beta
+}
+
 enum EffectType {
 	Damage,
 	Heal,
